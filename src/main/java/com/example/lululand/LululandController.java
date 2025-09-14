@@ -110,44 +110,33 @@ public class LululandController {
 	}
 
 	@PostMapping("/api/signup")
-    public ResponseEntity<Map<String, String>> apiSignup(@RequestBody Map<String, String> body) {
+	@ResponseBody
+	public ResponseEntity<Map<String, String>> apiSignup(@Valid @RequestBody UserCreateForm form,
+			BindingResult bindingResult) {
 
-        // 1) 필수 항목 확인 (프론트가 보내는 키: username, email, password, fullname, phone, (optional) confirmPassword)
-        String userId = trim(body.get("username"));
-        String email = trim(body.get("email"));
-        String password = body.get("password"); // 비밀번호는 trim하지 않을 수 있음
-        String confirmPassword = trim(body.get("confirmPassword")); // 프론트에서 전달했다면 확인
-        String fullname = trim(body.get("fullname"));
-        String phone = trim(body.get("phone"));
+		// 1. 입력값 검증
+		if (bindingResult.hasErrors()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "입력값이 올바르지 않습니다."));
+		}
 
-        if (isEmpty(userId) || isEmpty(email) || isEmpty(password)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "아이디, 이메일, 비밀번호는 필수입니다."));
-        }
+		// 2. 비밀번호 일치 여부 확인
+		if (!form.getPassword1().equals(form.getPassword2())) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "비밀번호가 일치하지 않습니다."));
+		}
 
-        // 2) (선택) 비밀번호 길이/정책 검사
-        if (password.length() < 8) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "비밀번호는 최소 8자 이상이어야 합니다."));
-        }
+		try {
+			// 3. 회원 생성 (Service 내부에서 PasswordEncoder 사용하여 암호화 저장)
+			lululandService.create(form.getUserid(), form.getEmail(), form.getPassword1(), form.getUsername(),
+					form.getPhone());
 
-        // 3) confirmPassword가 존재하면 검사(프론트에서도 검사하지만 서버에서도 이중검사 권장)
-        if (!isEmpty(confirmPassword) && !password.equals(confirmPassword)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "비밀번호 확인이 일치하지 않습니다."));
-        }
-
-        try {
-            // 4) Service 레이어로 전달 (Service 내부에서 PasswordEncoder로 해시 저장 권장)
-            // 기존 service.create signature 에 맞춰 전달:
-            // (userid, email, rawPassword, username(display name), phone)
-            lululandService.create(userId, email, password, fullname, phone);
-
-            return ResponseEntity.ok(Map.of("message", "회원가입 성공"));
-        } catch (DataIntegrityViolationException e) {
-            // DB unique 제약 위반(이미 존재하는 userid 또는 email)
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", "이미 등록된 사용자입니다."));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "서버 에러: " + e.getMessage()));
-        }
-    }
+			return ResponseEntity.ok(Map.of("message", "회원가입 성공"));
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", "이미 등록된 사용자입니다."));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Map.of("error", "서버 에러: " + e.getMessage()));
+		}
+	}
 
 	@GetMapping("/api/me")
 	@ResponseBody
