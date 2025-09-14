@@ -1,0 +1,899 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>루루랜드</title>
+	<META name='description' content='보석의 새 생명을 찾아 보세요 보석 감정 서비스,리폼 서비스,수리 서비스 세상을 색으로 물들이다' />
+	<META name='keywords' content='루루랜드' />
+	<meta property="og:title" content="루루랜드" data-dynamic="true" />
+	<link rel="icon" href="image/lululand-logo-ao1111.png" type="image/gif" />
+	<meta name="naver-site-verification" content="de323d100f488986c48584c1c7a9fab0490a3998" />
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			word-break: keep-all;
+			word-wrap: break-word;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		}
+
+		:root {
+			--primary-color: rgb(0, 41, 255);
+			--secondary-color: rgb(0, 41, 255);
+			--text-color: #2c2c2c;
+			--light-text: #666666;
+			--background: #ffffff;
+			--transition-speed: 0.5s;
+			--gold-gradient: linear-gradient(135deg, rgb(0, 41, 255) 0%, rgb(0, 41, 255) 100%);
+		}
+
+		body {
+			color: #333;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		header {
+			background-color: white;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 1000;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.logo img {
+			height: 40px;
+		}
+
+		.logo-text {
+			font-size: 1.2rem;
+			font-weight: 700;
+			color: rgb(0, 0, 0);
+		}
+
+		.logo a {
+			display: flex;
+			align-items: center;
+			text-decoration: none;
+		}
+
+		.main-nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 2rem;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: 2rem;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: #333;
+			font-weight: 500;
+			transition: color 0.3s;
+		}
+
+		.nav-links a:hover {
+			color: #1a73e8;
+		}
+
+		.search-container {
+			flex: 1;
+			max-width: 600px;
+			margin: 0 1rem;
+		}
+
+		.search-box {
+			display: flex;
+			border: 2px solid var(--naver-green);
+			border-radius: 4px;
+			overflow: hidden;
+		}
+
+		.search-input {
+			flex: 1;
+			padding: 0.8rem;
+			border: none;
+			outline: none;
+			font-size: 1rem;
+		}
+
+		.search-button {
+			background: var(--naver-green);
+			color: white;
+			border: none;
+			padding: 0 1.5rem;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		.login-button {
+			background: var(--naver-green);
+			color: white;
+			border: none;
+			padding: 0 1.5rem;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		.search-button:hover {
+			background: var(--naver-light-green);
+		}
+
+		.login-button:hover {
+			background: var(--naver-light-green);
+		}
+
+		.main-content {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		.categories {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			gap: 1rem;
+			margin-bottom: 2rem;
+		}
+
+		.category-card {
+			background: white;
+			padding: 1rem;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			text-align: center;
+			cursor: pointer;
+			transition: transform 0.2s;
+		}
+
+		.category-card:hover {
+			transform: translateY(-2px);
+		}
+
+		.products-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 1.5rem;
+		}
+
+		.product-card {
+			background: white;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s;
+		}
+
+		.product-card:hover {
+			transform: translateY(-4px);
+		}
+
+		.product-image {
+			width: 100%;
+			height: 200px;
+			object-fit: cover;
+		}
+
+		.product-info {
+			padding: 1rem;
+		}
+
+		.product-title {
+			font-size: 0.9rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.product-price {
+			font-weight: bold;
+			color: #111;
+		}
+
+		.product-mall {
+			font-size: 0.8rem;
+			color: #666;
+		}
+
+		.login-box {
+			color: rgb(254, 255, 251);
+			font-size: 1.1rem;
+			font-weight: bold;
+		}
+
+		.footer-marketernana {
+			font-size: 13px;
+			margin-left: 3%;
+		}
+
+		.header .header-menu {
+			text-align: center;
+			font-size: 1.1rem;
+		}
+
+		.header .header-menu a {
+			color: rgb(0, 0, 0);
+			padding: 10px;
+			font-weight: 500;
+			display: inline-block;
+		}
+
+		.nav-item {
+			display: inline-block;
+			padding-right: 6px;
+		}
+
+		#s1 {
+			padding-top: 80px;
+		}
+
+		main h2 {
+			font-size: 36px;
+			margin-bottom: 20px;
+			color: rgb;
+		}
+
+		main p {
+			color: #666;
+			margin-bottom: 30px;
+		}
+
+		footer {
+			background-color: rgb(121, 133, 133);
+			color: white;
+			text-align: center;
+			padding: 30px 20px;
+		}
+
+		.footer-content {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 20px;
+		}
+
+		.footer-links,
+		.social-links {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 15px;
+		}
+
+		.footer-links a,
+		.social-links a {
+			color: white;
+			text-decoration: none;
+			margin: 0 10px;
+		}
+
+		.dropdown-item {
+			font-weight: 50;
+			font-size: 13px;
+			width: 7rem;
+			color: white;
+		}
+
+		.dropdown-submenu {
+			position: relative;
+		}
+
+		.dropdown-menu {
+			border-color: none;
+			border: none !important;
+			text-align: center;
+			width: 10rem;
+			margin: 0rem;
+			margin-top: 0rem;
+			background-color: rgb(255, 255, 255);
+		}
+
+		.navbar-nav .dropdown-menu {
+			border-top: 3px solid rgb(0, 0, 0) !important;
+			position: fixed;
+		}
+
+		.dropdown-toggle::after {
+			display: none;
+		}
+
+		.userEL18523464 {
+			position: relative;
+			padding: 20px 0px;
+			text-align: center;
+		}
+
+		.userEL18523464 .cl_caption {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		@media only screen and (max-width:991px) {
+			.userEL18523464 .text {
+				margin-top: 8px;
+				margin-bottom: 8px;
+			}
+		}
+
+		@media only screen and (max-width:767px) {
+			.userEL18523464 .text {
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+		}
+
+		.filter-btn {
+			padding: 8px 24px;
+			border: 1px solid #e0e0e0;
+			background-color: white;
+			border-radius: 20px;
+			cursor: pointer;
+			font-size: 0.9rem;
+			color: #666;
+			transition: all 0.3s ease;
+		}
+
+		.filter-btn:hover {
+			border-color: #1a73e8;
+			color: #1a73e8;
+		}
+
+		.filter-btn.active {
+			background-color: #1a73e8;
+			color: white;
+			border-color: #1a73e8;
+		}
+
+		.product-cards {
+			display: flex;
+			gap: 20px;
+			justify-content: center;
+			margin-bottom: 30px;
+		}
+
+		.product-card {
+			flex: 1;
+			max-width: 350px;
+			padding: 30px;
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s ease;
+			position: relative;
+			overflow: hidden;
+			display: none;
+			animation: fadeIn 0.5s ease;
+		}
+
+		.product-card:hover {
+			transform: translateY(-5px);
+		}
+
+		.product-card.show {
+			display: block;
+		}
+
+		.product-image {
+			width: 100%;
+			height: 200px;
+			margin-bottom: 20px;
+			border-radius: 8px;
+			overflow: hidden;
+		}
+
+		.product-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.3s ease;
+		}
+
+		.product-card:hover .product-image img {
+			transform: scale(1.05);
+		}
+
+		.product-label {
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			display: inline-block;
+			padding: 5px 15px;
+			background-color: #E8F3F9;
+			color: #1a73e8;
+			border-radius: 20px;
+			font-size: 0.9rem;
+			z-index: 1;
+		}
+
+		.product-info {
+			padding: 0 10px;
+		}
+
+		.product-card h3 {
+			font-size: 1.5rem;
+			color: #333;
+			margin-bottom: 15px;
+			line-height: 1.3;
+		}
+
+		.product-card p {
+			color: #666;
+			font-size: 1rem;
+			line-height: 1.5;
+			margin-bottom: 20px;
+		}
+
+		.product-filters {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 30px;
+			justify-content: center;
+		}
+
+		.product-buttons {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-top: 15px;
+		}
+
+		.product-buttons form {
+			flex: 1;
+		}
+
+		.purchase-btn {
+			background-color: #fff;
+			border: 1px solid #e0e0e0;
+			padding: 8px 16px;
+			border-radius: 4px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #666;
+			transition: all 0.3s ease;
+			font-size: 0.9rem;
+			width: 100%;
+		}
+
+		.purchase-btn:hover {
+			border-color: #1a73e8;
+			color: #1a73e8;
+			background-color: #f8f9fa;
+		}
+
+		.financial-products {
+			padding: 60px 20px;
+			background-color: #fff;
+		}
+
+		@media (max-width: 768px) {
+			.products-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.filter-container {
+				flex-wrap: wrap;
+				padding: 0 20px;
+			}
+		}
+
+		@media (max-width: 1024px) {
+			.products-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
+		@media (max-width: 480px) {
+			.cart-btn {
+				width: 32px;
+				height: 32px;
+			}
+
+			.cart-count {
+				width: 16px;
+				height: 16px;
+				font-size: 0.7rem;
+				top: -6px;
+				right: -6px;
+			}
+		}
+
+		.cart-btn {
+			background-color: #fff;
+			border: 1px solid #e0e0e0;
+			padding: 8px 16px;
+			border-radius: 4px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #666;
+			transition: all 0.3s ease;
+			font-size: 0.9rem;
+		}
+
+		.cart-btn:hover {
+			border-color: #1a73e8;
+			color: #1a73e8;
+			background-color: #f8f9fa;
+		}
+		h2{
+			margin-top: 10%;
+		}
+
+        .auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-login, .btn-signup {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn-login {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-login:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-signup {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-signup:hover {
+    background-color: rgb(0, 30, 200);
+}
+	</style>
+</head>
+
+<body>
+	<header class="app-header">
+		<nav class="main-nav">
+			<div class="logo">
+				<img src="images/lululand-logo-ao1111.png" alt="루루랜드">
+				<a href="index.html"><span class="logo-text">루루랜드</span></a>
+			</div>
+			<ul class="nav-links">
+  				<li><a href="home.html">홈</a></li>
+  				<li><a href="gem-appraisal.html">보석감정 & 인증</a></li>
+  				<li><a href="repair.html">컬러진단 & 매칭</a></li>
+  				<li><a href="counsel.html">스토리 & 클래스</a></li>
+  				<li><a href="color.html">쇼핑 & 추천</a></li>
+  				<li><a href="shopping.html">커뮤니티 & 후기</a></li>
+			</ul>
+			<div class="auth-buttons">
+    <a href="login.html" class="btn-login">로그인</a>
+    <a href="signup.html" class="btn-signup">회원가입</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<h2>준비중</h2>
+		<!--<section class="product-filters">
+			<div class="filter-container">
+				<button class="filter-btn active">전체</button>
+				<button class="filter-btn">목걸이</button>
+				<button class="filter-btn">귀걸이</button>
+				<button class="filter-btn">반지</button>
+				<button class="filter-btn">팔찌</button>
+			</div>
+		</section>
+
+		<section class="financial-products">
+			<div class="product-filters">
+				<button class="filter-btn active" data-category="전체">전체</button>
+				<button class="filter-btn" data-category="목걸이">목걸이</button>
+				<button class="filter-btn" data-category="귀걸이">귀걸이</button>
+				<button class="filter-btn" data-category="팔찌">팔찌</button>
+				<button class="filter-btn" data-category="반지">반지</button>
+			</div>
+			<div class="product-cards">
+				<div class="product-card" data-category="목걸이">
+					<span class="product-label">목걸이</span>
+					<div class="product-image">
+						<img src="@{/static/image/1758938009-1-a.jpg}" alt="목걸이">
+					</div>
+					<div class="product-info">
+						<h3>목걸이</h3>
+						<p>진주<br>목걸이</p>
+						<div class="interest-rate">20000원</div>
+						<div class="product-buttons">
+							<button class="cart-btn" title="장바구니">장바구니</button>
+							<button class="purchase-btn" onclick="proceedToPayment(this)">구매하기</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-card" data-category="귀걸이">
+					<span class="product-label">귀걸이</span>
+					<div class="product-image">
+						<img th:src="@{/static/images/savings.jpg}" alt="귀걸이">
+					</div>
+					<div class="product-info">
+						<h3>진주<br>귀걸이</h3>
+						<p>아름다움을 위한<br>현명한 선택</p>
+						<div class="interest-rate">20000원</div>
+						<div class="product-buttons">
+							<button class="cart-btn" title="장바구니">장바구니</button>
+							<button class="purchase-btn" onclick="proceedToPayment(this)">구매하기</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-card" data-category="팔찌">
+					<span class="product-label">팔찌</span>
+					<div class="product-image">
+						<img th:src="@{/static/images/savings-plus.jpg}" alt="팔찌">
+					</div>
+					<div class="product-info">
+						<h3>금속 팔찌</h3>
+						<p>고급스러운<br>액세서리</p>
+						<div class="interest-rate">20000원</div>
+						<div class="product-buttons">
+							<button class="cart-btn" title="장바구니">장바구니</button>
+							<button class="purchase-btn" onclick="proceedToPayment(this)">구매하기</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-card" data-category="반지">
+					<span class="product-label">반지</span>
+					<div class="product-image">
+						<img th:src="@{/static/images/savings-plus.jpg}" alt="반지">
+					</div>
+					<div class="product-info">
+						<h3>반지</h3>
+						<p>고급스러운<br>액세서리</p>
+						<div class="interest-rate">20000원</div>
+						<div class="product-buttons">
+							<button class="cart-btn" title="장바구니">장바구니</button>
+							<button class="purchase-btn" onclick="proceedToPayment(this)">구매하기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>-->
+	</main>
+	<!--<img src="image/qr-home.png" width="100" height="100" align="left">-->
+	<footer>
+		<div class="footer-content">
+			<div class="social-links">
+				<a href="https://instagram.com">Instagram</a>
+				<a href="https://facebook.com">Facebook</a>
+				<a href="https://pinterest.com">Pinterest</a>
+				<a href="https://www.youtube.com/@user-leh1234/featured">Youtube</a>
+			</div>
+		</div>
+		<p>루루랜드 COPYRIGHT INFORMATION GOES HERE © 2025. ALL RIGHTS RESERVED.
+			&nbsp; Email:leh2019@naver.com</p>
+	</footer>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const filterButtons = document.querySelectorAll('.filter-btn');
+			const productCards = document.querySelectorAll('.product-card');
+
+			filterButtons.forEach(button => {
+				button.addEventListener('click', () => {
+					// 모든 버튼에서 active 제거
+					filterButtons.forEach(btn => btn.classList.remove('active'));
+					button.classList.add('active');
+
+					const category = button.dataset.category;
+
+					productCards.forEach(card => {
+						card.classList.remove('show');
+						// 전체이거나 카테고리 일치하면 show 클래스 부여
+						if (category === '전체' || card.dataset.category === category) {
+							setTimeout(() => {
+								card.classList.add('show');
+							}, 0);
+						}
+					});
+				});
+			});
+		});
+	</script>
+
+	<!--<script>
+		function updateCartCount() {
+			const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+			const count = cartItems.reduce((sum, item) => sum + (item.count || 1), 0);
+			const cartCountElem = document.getElementById('cart-count');
+			if (cartCountElem) {
+				cartCountElem.textContent = count;
+				cartCountElem.style.display = count > 0 ? 'inline-block' : 'none';
+			}
+		}
+		document.addEventListener('DOMContentLoaded', updateCartCount);
+	</script>
+
+	<script>
+		function proceedToPayment(button) {
+			const productCard = button.closest('.product-card');
+			const productInfo = {
+				name: productCard.querySelector('h3').textContent,
+				rate: productCard.querySelector('.interest-rate').textContent,
+				image: productCard.querySelector('.product-image img').src
+			};
+			localStorage.setItem('selectedProduct', JSON.stringify(productInfo));
+			window.location.href = 'http://localhost:8080/payment';
+		}
+
+		document.querySelectorAll('.purchase-btn').forEach(button => {
+			button.addEventListener('click', function () {
+				proceedToPayment(this);
+			});
+		});
+	</script>-->
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const filterButtons = document.querySelectorAll('.filter-btn');
+			const productCards = document.querySelectorAll('.product-card');
+
+			// "전체" 버튼을 기본 활성화
+			filterButtons.forEach(btn => btn.classList.remove('active'));
+			const allBtn = Array.from(filterButtons).find(btn => btn.textContent === '전체' || btn.dataset.category === '전체');
+			if (allBtn) {
+				allBtn.classList.add('active');
+			}
+
+			// 전체 상품을 모두 보여줌
+			productCards.forEach(card => {
+				card.classList.add('show');
+			});
+
+			// 기존 필터 이벤트도 유지
+			filterButtons.forEach(button => {
+				button.addEventListener('click', () => {
+					filterButtons.forEach(btn => btn.classList.remove('active'));
+					button.classList.add('active');
+
+					const category = button.dataset.category;
+					productCards.forEach(card => {
+						card.classList.remove('show');
+						if (category === '전체' || card.dataset.category === category) {
+							setTimeout(() => {
+								card.classList.add('show');
+							}, 0);
+						}
+					});
+				});
+			});
+		});
+
+	</script>
+
+	<!--<script>
+		// 상품 카드 장바구니 버튼
+		document.querySelectorAll('.cart-btn').forEach(function (button) {
+			button.addEventListener('click', function (e) {
+				e.preventDefault();
+				if (!isLoggedIn) {
+					window.location.href = '/user/login';
+					return;
+				}
+				// 로그인 상태: 장바구니에 담기
+				const productCard = this.closest('.product-card');
+				const productInfo = {
+					name: productCard.querySelector('h3').textContent,
+					rate: productCard.querySelector('.interest-rate').textContent,
+					image: productCard.querySelector('.product-image img').src
+				};
+				addToCart(productInfo);
+				alert('장바구니에 담았습니다!');
+			});
+		});
+
+		// 네비게이션 장바구니 버튼
+		document.querySelectorAll('.nav-cart-btn').forEach(function (btn) {
+			btn.addEventListener('click', function (e) {
+				if (!isLoggedIn) {
+					e.preventDefault();
+					alert('로그인하세요');
+					window.location.href = '/user/login';
+				}
+				// 로그인 상태면 기본 동작(장바구니 페이지 이동)
+			});
+		});
+
+		// 장바구니에 상품 추가 함수
+		function addToCart(productInfo) {
+			let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+			const existing = cartItems.find(item => item.name === productInfo.name);
+			if (existing) {
+				existing.count = (existing.count || 1) + 1;
+			} else {
+				productInfo.count = 1;
+				cartItems.push(productInfo);
+			}
+			localStorage.setItem('cartItems', JSON.stringify(cartItems));
+		}
+	</script>-->
+
+	<!--<script th:inline="javascript">
+		var isLoggedIn = /*[[${isLoggedIn}]]*/;
+	</script>
+
+	<script>
+		// 네비게이션 장바구니 버튼
+		document.querySelectorAll('.nav-link.cart').forEach(function (btn) {
+			btn.addEventListener('click', function (e) {
+				if (!isLoggedIn) {
+					e.preventDefault();
+					alert('로그인하세요');
+					window.location.href = '/user/login';
+				}
+			});
+		});
+
+		// 상품 카트 장바구니 버튼
+		document.querySelectorAll('.cart-btn').forEach(function (button) {
+			button.addEventListener('click', function (e) {
+				e.preventDefault();
+				if (!isLoggedIn) {
+					alert('로그인하세요');
+					window.location.href = '/user/login';
+					return;
+				}
+				// 로그인 상태면 장바구니에 담기 기능 실행
+				// addToCart(productInfo);
+				// alert('장바구니에 담았습니다!');
+			});
+		});
+
+		document.querySelectorAll('.purchase-btn').forEach(function (button) {
+			button.addEventListener('click', function (e) {
+				e.preventDefault();
+				if (!isLoggedIn) {
+					alert('로그인하세요');
+					window.location.href = '/user/login';
+					return;
+				}
+				// 로그인 상태면 장바구니에 담기 기능 실행
+				// addToCart(productInfo);
+				// alert('장바구니에 담았습니다!');
+			});
+		});
+	</script>-->
+
+	<script>
+  function proceedToPayment(btn) {
+    // 안내 창 표시
+    if (confirm('카카오톡 오픈채팅으로 이동합니다.')) {
+      // 실제 사용하고자 하는 오픈채팅 URL로 변경하세요
+      window.location.href = 'https://open.kakao.com/o/sSykJxJh';
+    }
+  }
+</script>
+
+</body>
+
+</html>

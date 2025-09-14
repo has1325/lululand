@@ -1,0 +1,360 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>루루랜드</title>
+	<META name='description' content='보석의 새 생명을 찾아 보세요 보석 감정 서비스,리폼 서비스,수리 서비스 세상을 색으로 물들이다' />
+	<META name='keywords' content='루루랜드' />
+	<meta property="og:title" content="루루랜드" data-dynamic="true" />
+	<link rel="icon" href="image/lululand-logo-ao1111.png" type="image/gif" />
+	<meta name="naver-site-verification" content="de323d100f488986c48584c1c7a9fab0490a3998" />
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			word-break: keep-all;
+			word-wrap: break-word;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		}
+
+		:root {
+			--primary-color: rgb(0, 41, 255);
+			--secondary-color: rgb(0, 41, 255);
+			--text-color: #2c2c2c;
+			--light-text: #666666;
+			--background: #ffffff;
+			--transition-speed: 0.5s;
+			--gold-gradient: linear-gradient(135deg, rgb(0, 41, 255) 0%, rgb(0, 41, 255) 100%);
+		}
+
+		body {
+			color: #333;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		header {
+			background-color: white;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 1000;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.logo img {
+			height: 40px;
+		}
+
+		.logo-text {
+			font-size: 1.2rem;
+			font-weight: 700;
+			color: rgb(0, 0, 0);
+		}
+
+		.logo a {
+			display: flex;
+			align-items: center;
+			text-decoration: none;
+		}
+
+		.main-nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 2rem;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: 2rem;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: #333;
+			font-weight: 500;
+			transition: color 0.3s;
+		}
+
+		.nav-links a:hover {
+			color: #1a73e8;
+		}
+
+		.login-box {
+			color: rgb(254, 255, 251);
+			font-size: 1.1rem;
+			font-weight: bold;
+		}
+
+		footer {
+			background-color: rgb(121, 133, 133);
+			color: white;
+			text-align: center;
+			padding: 30px 20px;
+		}
+
+		.footer-content {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 20px;
+		}
+
+		.social-links {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 15px;
+		}
+
+		.social-links a {
+			color: white;
+			text-decoration: none;
+			margin: 0 10px;
+		}
+
+		/* ===== 로그인 폼 스타일 ===== */
+		main {
+			max-width: 400px;
+			margin: 120px auto;
+			padding: 20px;
+			background: #fff;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+		}
+
+		main h2 {
+			text-align: center;
+			margin-bottom: 20px;
+			color: #333;
+		}
+
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+		.form-group label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: 500;
+			color: #555;
+		}
+
+		.form-group input {
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 6px;
+			font-size: 14px;
+		}
+
+		.form-group input:focus {
+			border-color: #1a73e8;
+			outline: none;
+		}
+
+		.submit-btn {
+			width: 100%;
+			padding: 12px;
+			background: #1a73e8;
+			color: white;
+			border: none;
+			border-radius: 6px;
+			font-size: 16px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: background 0.3s ease;
+		}
+
+		.submit-btn:hover {
+			background: #1557b0;
+		}
+        #passwordToggle {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+    }
+
+    #passwordToggle:hover {
+        background-color: #e0e0e0;
+    }
+
+    .auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-login, .btn-signup {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn-login {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-login:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-signup {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-signup:hover {
+    background-color: rgb(0, 30, 200);
+}
+
+	</style>
+</head>
+
+<body>
+	<header class="app-header">
+		<nav class="main-nav">
+			<div class="logo">
+				<img src="images/lululand-logo-ao1111.png" alt="루루랜드">
+				<a href="index.html"><span class="logo-text">루루랜드</span></a>
+			</div>
+			<ul class="nav-links">
+  				<li><a href="home.html">홈</a></li>
+  				<li><a href="gem-appraisal.html">보석감정 & 인증</a></li>
+  				<li><a href="repair.html">컬러진단 & 매칭</a></li>
+  				<li><a href="counsel.html">스토리 & 클래스</a></li>
+  				<li><a href="color.html">쇼핑 & 추천</a></li>
+  				<li><a href="shopping.html">커뮤니티 & 후기</a></li>
+			</ul>
+			<div class="auth-buttons">
+                <a href="login.html" class="btn-login">로그인</a>
+                <a href="signup.html" class="btn-signup">회원가입</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+    <h2>로그인</h2>
+        <form id="loginForm">
+        <div class="form-group">
+            <label for="email">이메일 주소</label>
+            <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+            <button type="button" id="passwordToggle" style="margin-top:5px;">비밀번호 보기</button>
+        </div>
+        <div id="error-message" style="color:red; margin-bottom:10px;"></div>
+        <button type="submit" id="loginSubmit" class="submit-btn">로그인</button>
+        </form>
+    </main>
+
+	<footer>
+		<div class="footer-content">
+			<div class="social-links">
+				<a href="https://instagram.com">Instagram</a>
+				<a href="https://facebook.com">Facebook</a>
+				<a href="https://pinterest.com">Pinterest</a>
+				<a href="https://www.youtube.com/@user-leh1234/featured">Youtube</a>
+			</div>
+		</div>
+		<p>루루랜드 COPYRIGHT INFORMATION GOES HERE © 2025. ALL RIGHTS RESERVED.
+			&nbsp; Email:leh2019@naver.com</p>
+	</footer>
+
+    <script src="social-light-script.js"></script>
+	<script src="auth-script.js"></script>
+
+	<script>
+    // Render 백엔드 주소
+    const BACKEND = "https://lululand.onrender.com";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("loginForm");
+        const errorDiv = document.getElementById("error-message");
+        const submitBtn = document.getElementById("loginSubmit");
+        const passToggle = document.getElementById("passwordToggle");
+
+        // 비밀번호 보이기/숨기기 기능
+        passToggle.addEventListener("click", () => {
+            const pw = document.getElementById("password");
+            if (pw.type === "password") {
+                pw.type = "text";
+                passToggle.textContent = "비밀번호 숨기기";
+            } else {
+                pw.type = "password";
+                passToggle.textContent = "비밀번호 보기";
+            }
+        });
+
+        // 로그인 요청
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            errorDiv.textContent = "";
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            if (!email || !password) {
+                errorDiv.textContent = "이메일과 비밀번호를 입력해 주세요.";
+                return;
+            }
+
+            submitBtn.disabled = true;
+
+            try {
+                const res = await fetch(`${BACKEND}/api/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    if (data.token) {
+                        localStorage.setItem("jwtToken", data.token);
+                    }
+                    if (data.user) {
+                        localStorage.setItem("username", data.user);
+                    }
+                    // 로그인 성공 → 홈으로 이동
+                    window.location.href = "/";
+                } else {
+                    errorDiv.textContent = data.error || data.message || "로그인 실패";
+                }
+            } catch (err) {
+                console.error("로그인 요청 실패:", err);
+                errorDiv.textContent = "서버와 통신할 수 없습니다.";
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

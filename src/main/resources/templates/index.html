@@ -1,0 +1,882 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>루루랜드</title>
+	<META name='description' content='보석의 새 생명을 찾아 보세요 보석 감정 서비스,컬러 컨설팅,폼 서비스,수리 서비스 세상을 색으로 물들이다' />
+	<META name='keywords' content='루루랜드' />
+	<meta property="og:title" content="루루랜드" data-dynamic="true" />
+	<link rel="icon" href="image/lululand-logo-ao1111.png" type="image/gif" />
+	<meta name="naver-site-verification" content="de323d100f488986c48584c1c7a9fab0490a3998" />
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			word-break: keep-all;
+			word-wrap: break-word;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		}
+
+		:root {
+			--primary-color: rgb(0, 41, 255);
+			--secondary-color: rgb(0, 41, 255);
+			--text-color: #2c2c2c;
+			--light-text: #666666;
+			--background: #ffffff;
+			--transition-speed: 0.5s;
+			--gold-gradient: linear-gradient(135deg, rgb(0, 41, 255) 0%, rgb(0, 41, 255) 100%);
+		}
+
+		body {
+			color: #333;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		header {
+			background-color: white;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 1000;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.logo img {
+			height: 40px;
+		}
+
+		.logo-text {
+			font-size: 1.2rem;
+			font-weight: 700;
+			color: rgb(0, 0, 0);
+		}
+
+		.logo a {
+			display: flex;
+			align-items: center;
+			text-decoration: none;
+		}
+
+		.main-nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 2rem;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: 2rem;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: #333;
+			font-weight: 500;
+			transition: color 0.3s;
+		}
+
+		.nav-links a:hover {
+			color: #1a73e8;
+		}
+
+		.search-container {
+			flex: 1;
+			max-width: 600px;
+			margin: 0 1rem;
+		}
+
+		.search-box {
+			display: flex;
+			border: 2px solid var(--naver-green);
+			border-radius: 4px;
+			overflow: hidden;
+		}
+
+		.search-input {
+			flex: 1;
+			padding: 0.8rem;
+			border: none;
+			outline: none;
+			font-size: 1rem;
+		}
+
+		.search-button {
+			background: var(--naver-green);
+			color: white;
+			border: none;
+			padding: 0 1.5rem;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		.login-button {
+			background: var(--naver-green);
+			color: white;
+			border: none;
+			padding: 0 1.5rem;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		.search-button:hover {
+			background: var(--naver-light-green);
+		}
+
+		.login-button:hover {
+			background: var(--naver-light-green);
+		}
+
+		.main-content {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		.categories {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			gap: 1rem;
+			margin-bottom: 2rem;
+		}
+
+		.category-card {
+			background: white;
+			padding: 1rem;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			text-align: center;
+			cursor: pointer;
+			transition: transform 0.2s;
+		}
+
+		.category-card:hover {
+			transform: translateY(-2px);
+		}
+
+		.products-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 1.5rem;
+		}
+
+		.product-card {
+			background: white;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s;
+		}
+
+		.product-card:hover {
+			transform: translateY(-4px);
+		}
+
+		.product-image {
+			width: 100%;
+			height: 200px;
+			object-fit: cover;
+		}
+
+		.product-info {
+			padding: 1rem;
+		}
+
+		.product-title {
+			font-size: 0.9rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.product-price {
+			font-weight: bold;
+			color: #111;
+		}
+
+		.product-mall {
+			font-size: 0.8rem;
+			color: #666;
+		}
+
+		.login-box {
+			color: rgb(254, 255, 251);
+			font-size: 1.1rem;
+			font-weight: bold;
+		}
+
+		.footer-marketernana {
+			font-size: 13px;
+			margin-left: 3%;
+		}
+
+		.header .header-menu {
+			text-align: center;
+			font-size: 1.1rem;
+		}
+
+		.header .header-menu a {
+			color: rgb(0, 0, 0);
+			padding: 10px;
+			font-weight: 500;
+			display: inline-block;
+		}
+
+		.nav-item {
+			display: inline-block;
+			padding-right: 6px;
+		}
+
+		.jewelry {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+			padding: 30px 20px;
+			background: rgb(255, 255, 255)
+		}
+
+		.jewelry-content1 {
+			height: 600px;
+			width: 2000px;
+			background-image: url('https://lh3.googleusercontent.com/ufhAzJTEYIX9zcjihhy54Ta84JVUm3Vl-yt3R6KlC1xzkrGSwYDKo-4ZYt5cqUqKPLtQOyfZqRXMkCoSYp9jMGoiQfHVqUfVsJy83OY=s0');
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+			background-attachment: fixed;
+			padding: 0px 0px 0px 0px;
+			font-family: "Open sans", "Nanum Gothic", Tahoma, Dotum, Verdana, Arial, "Trebuchet MS";
+			font-size: 25px;
+			text-align: center;
+			padding: 200px 0;
+			color: white;
+		}
+
+		.element-content .userEL18523252 {
+			background-attachment: scroll;
+		}
+
+		.userEL18523252 .container,
+		.userEL18523252 .row,
+		.userEL18523252 .row .col-md-12 {
+			height: 100%;
+		}
+
+		.userEL18523252 .inner-box {
+			position: relative;
+			top: 50%;
+			left: 0;
+			-webkit-transform: translateY(-50%);
+			-moz-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			transform: translateY(-50%);
+		}
+
+		@media only screen and (max-width:767px) {
+			.userEL18523252 {
+				height: 450px;
+			}
+		}
+
+		.jewelry-content2 {
+			height: 600px;
+			width: 2000px;
+			background-image: url('https://lh3.googleusercontent.com/9ASEIyv1xg8jL7LECSkB8-8RyNHv45ljGTay3OSk6muw8fKqunSgwJrqN_YSIDKlEncyQibUgM1pJ-zfq6Z1zCzMa6NYE9BWC9jf_5Q9=s0');
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+			background-attachment: fixed;
+			padding: 0px 0px 0px 0px;
+			font-family: "Open sans", "Nanum Gothic", Tahoma, Dotum, Verdana, Arial, "Trebuchet MS";
+			font-size: 25px;
+			text-align: center;
+			padding: 240px 0;
+			color: white;
+		}
+
+		.element-content .userEL18523308 {
+			background-attachment: scroll;
+		}
+
+		.userEL18523308 .container,
+		.userEL18523308 .row,
+		.userEL18523308 .row .col-md-12 {
+			height: 100%;
+		}
+
+		.userEL18523308 .inner-box {
+			position: relative;
+			top: 50%;
+			left: 0;
+			-webkit-transform: translateY(-50%);
+			-moz-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			transform: translateY(-50%);
+		}
+
+		@media only screen and (max-width:767px) {
+			.userEL18523308 {
+				height: 450px;
+			}
+		}
+
+		.jewelry-content3 {
+			height: 600px;
+			width: 2000px;
+			background-image: url('https://lh3.googleusercontent.com/wLyP2Jnu223Y1joLQqt3sVk7umdGTXvfRLPofpvEB9QE9NBEZdBICnXddMfys26LJji_Cnt3xl7rLQHVkhAHfgF7v4SRQG8e9AYFMqOMnF9TGIpeFRtt=s0');
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+			background-attachment: fixed;
+			padding: 0px 0px 0px 0px;
+			font-family: "Open sans", "Nanum Gothic", Tahoma, Dotum, Verdana, Arial, "Trebuchet MS";
+			font-size: 25px;
+			text-align: center;
+			padding: 240px 0;
+			color: white;
+		}
+
+		.element-content .userEL18523308 {
+			background-attachment: scroll;
+		}
+
+		.userEL18523308 .container,
+		.userEL18523308 .row,
+		.userEL18523308 .row .col-md-12 {
+			height: 100%;
+		}
+
+		.userEL18523308 .inner-box {
+			position: relative;
+			top: 50%;
+			left: 0;
+			-webkit-transform: translateY(-50%);
+			-moz-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			transform: translateY(-50%);
+		}
+
+		@media only screen and (max-width:767px) {
+			.userEL18523308 {
+				height: 450px;
+			}
+		}
+
+		.jewelry-content4 {
+			height: 600px;
+			width: 2000px;
+			background-image: url('https://lh3.googleusercontent.com/4rVUdquvxqNHrelvJvRzZJln730EwRFOYt_TKDCfRAdKgZ9nKCsNZrLLQ6tCDgGg7yhJ-jS1FeNL_GzA5GIZ_dypX1L-urY9WyF67Ww=s0');
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+			background-attachment: fixed;
+			padding: 0px 0px 0px 0px;
+			font-family: "Open sans", "Nanum Gothic", Tahoma, Dotum, Verdana, Arial, "Trebuchet MS";
+			font-size: 25px;
+			text-align: center;
+			padding: 240px 0;
+			color: white;
+		}
+
+		.element-content .userEL18523308 {
+			background-attachment: scroll;
+		}
+
+		.userEL18523308 .container,
+		.userEL18523308 .row,
+		.userEL18523308 .row .col-md-12 {
+			height: 100%;
+		}
+
+		.userEL18523308 .inner-box {
+			position: relative;
+			top: 50%;
+			left: 0;
+			-webkit-transform: translateY(-50%);
+			-moz-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			transform: translateY(-50%);
+		}
+
+		@media only screen and (max-width:767px) {
+			.userEL18523308 {
+				height: 450px;
+			}
+		}
+
+		.jewelry-content5 {
+			height: 600px;
+			width: 2000px;
+			background-image: url('https://lh3.googleusercontent.com/-bP0vxJxwMu_qt_k-O7JyU8BzZ8YEE9NVEs_vSufBlmF7kJNuyjE7HlFKTH86N2D8ZxD6ONmRzFJ1Mju80xtjtlCgQyHU5UYl0zi6iJI5ziebvTgsFZHGa4=s0');
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+			background-attachment: fixed;
+			padding: 0px 0px 0px 0px;
+			font-family: "Open sans", "Nanum Gothic", Tahoma, Dotum, Verdana, Arial, "Trebuchet MS";
+			font-size: 25px;
+			text-align: center;
+			padding: 240px 0;
+			color: white;
+		}
+
+		.element-content .userEL18523308 {
+			background-attachment: scroll;
+		}
+
+		.userEL18523308 .container,
+		.userEL18523308 .row,
+		.userEL18523308 .row .col-md-12 {
+			height: 100%;
+		}
+
+		.userEL18523308 .inner-box {
+			position: relative;
+			top: 50%;
+			left: 0;
+			-webkit-transform: translateY(-50%);
+			-moz-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			transform: translateY(-50%);
+		}
+
+		@media only screen and (max-width:767px) {
+			.userEL18523308 {
+				height: 450px;
+			}
+		}
+
+		.jewelry-content h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+			color: rgb;
+		}
+
+		.jewelry-content p {
+			color: #666;
+			margin-bottom: 30px;
+		}
+
+		.jewelry-image {
+			max-width: 100%;
+			display: flex;
+			justify-content: center;
+		}
+
+		.jewelry-image svg {
+			max-width: 100%;
+			height: auto;
+		}
+
+		footer {
+			background-color: rgb(121, 133, 133);
+			color: white;
+			text-align: center;
+			padding: 30px 20px;
+		}
+
+		.footer-content {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 20px;
+		}
+
+		.footer-links,
+		.social-links {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 15px;
+		}
+
+		.footer-links a,
+		.social-links a {
+			color: white;
+			text-decoration: none;
+			margin: 0 10px;
+		}
+
+		.dropdown-item {
+			font-weight: 50;
+			font-size: 13px;
+			width: 7rem;
+			color: white;
+		}
+
+		.dropdown-submenu {
+			position: relative;
+		}
+
+		.dropdown-menu {
+			border-color: none;
+			border: none !important;
+			text-align: center;
+			width: 10rem;
+			margin: 0rem;
+			margin-top: 0rem;
+			background-color: rgb(255, 255, 255);
+		}
+
+		.navbar-nav .dropdown-menu {
+			border-top: 3px solid rgb(0, 0, 0) !important;
+			position: fixed;
+		}
+
+		.dropdown-toggle::after {
+			display: none;
+		}
+
+		.userEL18523464 {
+			position: relative;
+			padding: 20px 0px;
+			text-align: center;
+		}
+
+		.userEL18523464 .cl_caption {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		@media only screen and (max-width:991px) {
+			.userEL18523464 .text {
+				margin-top: 8px;
+				margin-bottom: 8px;
+			}
+		}
+
+		@media only screen and (max-width:767px) {
+			.userEL18523464 .text {
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+		}
+		
+		.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-login, .btn-signup {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn-login {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-login:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-signup {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-signup:hover {
+    background-color: rgb(0, 30, 200);
+}
+
+	</style>
+</head>
+
+<body>
+	<header class="app-header">
+		<nav class="main-nav">
+			<div class="logo">
+				<img src="images/lululand-logo-ao1111.png" alt="루루랜드">
+				<a href="index.html"><span class="logo-text">루루랜드</span></a>
+			</div>
+			<ul class="nav-links">
+  				<li><a href="home.html">홈</a></li>
+  				<li><a href="gem-appraisal.html">보석감정 & 인증</a></li>
+  				<li><a href="repair.html">컬러진단 & 매칭</a></li>
+  				<li><a href="counsel.html">스토리 & 클래스</a></li>
+  				<li><a href="color.html">쇼핑 & 추천</a></li>
+  				<li><a href="shopping.html">커뮤니티 & 후기</a></li>
+			</ul>
+			<div class="auth-buttons">
+    <a href="login.html" class="btn-login">로그인</a>
+    <a href="signup.html" class="btn-signup">회원가입</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<section class="jewelry">
+			<div class="jewelry-content1">
+				<h1>LULULAND</h1><br>
+				<p>보석의 새 생명을 찾아보세요!</p>
+				<p>보석은 단순한 장신구가 아닙니다.</p>
+				<p>그 속에는 사랑의 이야기, 가족의 유산,</p>
+				<p>그리고 잊지 못할 순간들이 깃들어 있습니다.</p>
+				<p>하지만 시간이 지나면서 보석도 손상되거나</p>
+				<p>시대에 맞지 않게 될 수 있죠.</p>
+				<p>그렇다면 지금이야말로 당신의 보석에게</p>
+				<p>새 생명을 불어넣을 때입니다!</p>
+			</div>
+			<div class="jewelry-content2">
+				<h1>보석 감정 서비스</h1>
+				<p>소중한 보석의 진가를 알고 싶으신가요?</p>
+				<p>우리의 전문 보석 감정 팀이</p>
+				<p>당신의 보석을 정밀히 평가하여</p>
+				<p>그 가치를 확인해드립니다.</p>
+				<p>각각의 보석은 독특한 이야기를 가지고 있으며,</p>
+				<p>우리는 그 이야기를 존중하며 소중히 다룹니다.</p>
+			</div>
+			<div class="jewelry-content3">
+				<h1>보석 리폼 서비스</h1>
+				<p>트렌드에 맞지 않는 보석을 가지고 계신가요?</p>
+				<p>혹은 특별한 의미를 담고 싶은 새 디자인을 원하시나요?</p>
+				<p>우리의 리폼 서비스는 당신의 보석을 현대적이고</p>
+				<p>독특한 작품으로 재탄생시켜 드립니다.</p>
+				<p>새로운 디자인을 통해</p>
+				<p>보석의 가치와 의미를 한층 더 높여보세요!</p>
+			</div>
+			<div class="jewelry-content4">
+				<h1>보석 수리 서비스</h1>
+				<p>파손되거나 빛을 잃어버린 보석이라도 걱정하지 마세요.</p>
+				<p>우리의 숙련된 장인들이 세심한 손길로</p>
+				<p>보석을 원래의 아름다움으로 복원해드립니다.</p>
+				<p>오래된 결혼반지부터 귀한 패밀리 헤어룸까지,</p>
+				<p>당신의 보석은 다시금 빛날 준비가 되어 있습니다.</p>
+			</div>
+			<div class="jewelry-content5">
+				<h1>나만의 특별한 커스텀 주얼리</h1>
+				<p>고객님의 특별한 순간을 반영한 맞춤형 디자인.</p>
+				<p>프리미엄 소재와 정교한 제작으로 완성된 작품.</p>
+				<p>생일, 기념일, 결혼식 등 중요한 순간을 더욱 특별하게.</p>
+				<p>나만의 주얼리를 만나보세요.</p>
+			</div>
+			<iframe width="2000" height="600" 
+        src="https://www.youtube.com/embed/TBXJiRD9YmM"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+			</iframe>
+
+			<div class="jewelry-image">
+				<svg width="60" height="60" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+				</svg>
+			</div>
+			<div data-case="text79" class="userEL18523464 hide">
+				<div class="container">
+					<div class="row" data-matrix-loop="true" data-matrix-column="1">
+
+						<div class="col-xs-12 col-sm-12 col-md-12 item">
+							<div class="cl_caption" data-edit="true" data-selector=".cl_caption" style="z-index: 125;">
+								<hr class="fr-hr" style="border-bottom: 2px solid #d6d7d8; width: 35px;margin:0 auto;"
+									align="center">
+								<div><br></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">세상을 색으로 물들이다&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">색상은 우리의 삶에 깊숙이 스며들어 있습니다.</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">&nbsp;우리는 컬러를 통해&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">감정을 표현하고 분위기를 조성하며</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">&nbsp;기억을 만들어갑니다.&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">이제 당신의 일상에 컬러의 마법을 더해보세요!</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">​</span><br></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">색의 감정과 분위기</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">컬러는 단순한 시각적 요소가 아닙니다.</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">&nbsp;색상은 우리의 감정에 큰 영향을 미치며</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">주변 환경을 변화시킬 수 있는 강력한 도구입니다.&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">예를 들어, 따뜻한 색상은 편안함과 행복감을 주고&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">차가운 색상은 차분함과 집중력을 높여줍니다.&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">이러한 색상의 힘을 통해&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">당신의 공간과 삶을 변화시킬 수 있습니다.</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">​</span><br></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">컬러리스트의 역할&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">컬러리스트는 색상의 전문가로서</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">당신의 필요와 목적에 맞는 최적의 색상 조합을 제안합니다.</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">&nbsp;패션, 인테리어, 브랜딩, 그래픽 디자인 등&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">다양한 분야에서 컬러의 중요성을 강조하며</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">색상 선택을 통해 스타일과 개성을 더욱 돋보이게 합니다.</span></div>
+								<div><br></div>
+								<div style="line-height: 1.3;"><span style="font-family: Georgia;" class="fsize30"><span
+											style="color: rgb(0, 0, 0);">패션</span><br></span></div>
+								<div style="line-height: 1.3;">컬러리스트는 최신 트렌드를 반영하여&nbsp;</div>
+
+
+								<div style="line-height: 1.3;">개인의 스타일에 맞는 색상 조합을 제안합니다.</div>
+
+
+								<div style="line-height: 1.3;">&nbsp;이를 통해 당신의 패션 감각을</div>
+
+
+								<div style="line-height: 1.3;">한층 더 업그레이드할 수 있습니다.</div>
+
+
+								<div style="line-height: 1.3;"><br></div>
+
+
+								<div style="line-height: 1.3;">인테리어&nbsp;</div>
+
+
+								<div style="line-height: 1.3;">집이나 사무실의 분위기를 바꾸고 싶다면</div>
+
+
+								<div style="line-height: 1.3;">컬러리스트의 조언을 받아보세요.&nbsp;</div>
+
+
+								<div style="line-height: 1.3;">적절한 색상 조합을 통해</div>
+
+
+								<div style="line-height: 1.3;">공간의 느낌을 새롭게 바꿀 수 있습니다.</div>
+
+
+								<div style="line-height: 1.3;"><br></div>
+
+
+								<div style="line-height: 1.3;">브랜딩</div>
+
+
+								<div style="line-height: 1.3;">&nbsp;기업의 이미지를 강화하고 싶은가요?&nbsp;</div>
+
+
+								<div style="line-height: 1.3;">컬러리스트는 브랜드의 아이덴티티를</div>
+
+
+								<div style="line-height: 1.3;">가장 잘 표현할 수 있는 색상을 추천하여</div>
+
+
+								<div style="line-height: 1.3;">&nbsp;고객들에게 강렬한 인상을 남길 수 있습니다.</div>
+
+
+								<div style="line-height: 1.3;"><br></div>
+
+
+								<div style="line-height: 1.3;">그래픽 디자인</div>
+
+
+								<div style="line-height: 1.3;">&nbsp;시각적인 소통이 중요한 디자인 분야에서도</div>
+
+
+								<div style="line-height: 1.3;">컬러리스트의 역할은 필수적입니다.</div>
+
+
+								<div style="line-height: 1.3;">&nbsp;색상 선택을 통해 디자인의 효과를</div>
+
+
+								<div style="line-height: 1.3;">&nbsp;극대화할 수 있습니다.</div>
+								<div><br></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">컬러의 세계로</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">이제 당신도 컬러의 마법을 경험해보세요.&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">전문 컬러리스트와 함께라면&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">모든 분야에서 색상의 힘을&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">최대한으로 활용할 수 있습니다.</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">&nbsp;지금 바로 상담을 통해&nbsp;</span></div>
+								<div style="line-height: 1.3;"><span
+										style="color: rgb(0, 0, 0); font-family: Georgia; font-weight: 400;"
+										class="fsize30">당신의 삶에 새로운 색상을 더해보세요!</span></div>
+								<div><span class="fsize13"><span
+											style="color: rgb(138, 139, 142);font-family: 'Nanum Barun Gothic';"><br></span></span>
+								</div>
+								<hr class="fr-hr" style="border-bottom: 2px solid #d6d7d8; width: 35px;margin:0 auto;"
+									align="center">
+								<div><br></div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<!--<img src="image/qr-home.png" width="100" height="100" align="left">-->
+	<footer>
+		<div class="footer-content">
+			<div class="social-links">
+				<a href="https://instagram.com">Instagram</a>
+				<a href="https://facebook.com">Facebook</a>
+				<a href="https://pinterest.com">Pinterest</a>
+				<a href="https://www.youtube.com/@user-leh1234/featured">Youtube</a>
+			</div>
+		</div>
+		<p>루루랜드 COPYRIGHT INFORMATION GOES HERE © 2025. ALL RIGHTS RESERVED.
+			&nbsp; Email:leh2019@naver.com</p>
+	</footer>
+</body>
+
+</html>

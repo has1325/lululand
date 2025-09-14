@@ -1,0 +1,728 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>루루랜드</title>
+	<META name='description' content='보석의 새 생명을 찾아 보세요 보석 감정 서비스,리폼 서비스,수리 서비스 세상을 색으로 물들이다' />
+	<META name='keywords' content='루루랜드' />
+	<meta property="og:title" content="루루랜드" data-dynamic="true" />
+	<link rel="icon" href="image/lululand-logo-ao1111.png" type="image/gif" />
+	<meta name="naver-site-verification" content="de323d100f488986c48584c1c7a9fab0490a3998" />
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			word-break: keep-all;
+			word-wrap: break-word;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		}
+
+		:root {
+			--primary-color: rgb(0, 41, 255);
+			--secondary-color: rgb(0, 41, 255);
+			--text-color: #2c2c2c;
+			--light-text: #666666;
+			--background: #ffffff;
+			--transition-speed: 0.5s;
+			--gold-gradient: linear-gradient(135deg, rgb(0, 41, 255) 0%, rgb(0, 41, 255) 100%);
+		}
+
+		body {
+			color: #333;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		header {
+			background-color: white;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 1000;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.logo img {
+			height: 40px;
+		}
+
+		.logo-text {
+			font-size: 1.2rem;
+			font-weight: 700;
+			color: rgb(0, 0, 0);
+		}
+
+		.logo a {
+			display: flex;
+			align-items: center;
+			text-decoration: none;
+		}
+
+		.main-nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 2rem;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: 2rem;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: #333;
+			font-weight: 500;
+			transition: color 0.3s;
+		}
+
+		.nav-links a:hover {
+			color: #1a73e8;
+		}
+
+		.search-container {
+			flex: 1;
+			max-width: 600px;
+			margin: 0 1rem;
+		}
+
+		.search-box {
+			display: flex;
+			border: 2px solid var(--naver-green);
+			border-radius: 4px;
+			overflow: hidden;
+		}
+
+		.search-input {
+			flex: 1;
+			padding: 0.8rem;
+			border: none;
+			outline: none;
+			font-size: 1rem;
+		}
+
+		.search-button {
+			background: var(--naver-green);
+			color: white;
+			border: none;
+			padding: 0 1.5rem;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		.login-button {
+			background: var(--naver-green);
+			color: white;
+			border: none;
+			padding: 0 1.5rem;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		.search-button:hover {
+			background: var(--naver-light-green);
+		}
+
+		.login-button:hover {
+			background: var(--naver-light-green);
+		}
+
+		.main-content {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		.categories {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			gap: 1rem;
+			margin-bottom: 2rem;
+		}
+
+		.category-card {
+			background: white;
+			padding: 1rem;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			text-align: center;
+			cursor: pointer;
+			transition: transform 0.2s;
+		}
+
+		.category-card:hover {
+			transform: translateY(-2px);
+		}
+
+		.login-box {
+			color: rgb(254, 255, 251);
+			font-size: 1.1rem;
+			font-weight: bold;
+		}
+
+		.footer-marketernana {
+			font-size: 13px;
+			margin-left: 3%;
+		}
+
+		.header .header-menu {
+			text-align: center;
+			font-size: 1.1rem;
+		}
+
+		.header .header-menu a {
+			color: rgb(0, 0, 0);
+			padding: 10px;
+			font-weight: 500;
+			display: inline-block;
+		}
+
+		.nav-item {
+			display: inline-block;
+			padding-right: 6px;
+		}
+
+		#s1 {
+			padding-top: 80px;
+		}
+
+		footer {
+			background-color: rgb(121, 133, 133);
+			color: white;
+			text-align: center;
+			padding: 30px 20px;
+		}
+
+		.footer-content {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 20px;
+		}
+
+		.footer-links,
+		.social-links {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 15px;
+		}
+
+		.footer-links a,
+		.social-links a {
+			color: white;
+			text-decoration: none;
+			margin: 0 10px;
+		}
+
+		.repair-section {
+			padding: 60px 20px;
+			max-width: 1200px;
+			margin: 0 auto;
+			margin-top: 60px;
+		}
+
+		.service-cards {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 30px;
+			margin-bottom: 60px;
+		}
+
+		.service-card {
+			background: white;
+			padding: 40px 30px;
+			border-radius: 12px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+			text-align: center;
+			transition: transform 0.3s ease;
+		}
+
+		.service-card:hover {
+			transform: translateY(-5px);
+		}
+
+		.service-icon {
+			width: 80px;
+			height: 80px;
+			background: #f0f7ff;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 20px;
+		}
+
+		.service-icon i {
+			font-size: 32px;
+			color: #1a73e8;
+		}
+
+		.service-card h3 {
+			margin: 15px 0;
+			font-size: 1.5rem;
+			color: #333;
+		}
+
+		.service-details {
+			list-style: none;
+			padding: 0;
+			margin: 20px 0 0;
+			text-align: left;
+		}
+
+		.service-details li {
+			padding: 8px 0;
+			color: #666;
+			border-bottom: 1px solid #eee;
+		}
+
+		.service-details li:last-child {
+			border-bottom: none;
+		}
+
+		.process-section {
+			margin: 60px 0;
+		}
+
+		.process-section h2 {
+			text-align: center;
+			margin-bottom: 40px;
+			font-size: 2rem;
+			color: #333;
+		}
+
+		.process-timeline {
+			position: relative;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.process-timeline::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 2px;
+			height: 100%;
+			background: #e0e0e0;
+		}
+
+		.process-step {
+			display: flex;
+			align-items: center;
+			margin-bottom: 40px;
+			position: relative;
+		}
+
+		.step-number {
+			width: 40px;
+			height: 40px;
+			background: #1a73e8;
+			color: white;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+			margin-right: 20px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.step-content {
+			flex: 1;
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.step-content h3 {
+			margin: 0 0 10px;
+			color: #333;
+		}
+
+		.repair-form-container {
+			background: #f8f9fa;
+			padding: 60px 20px;
+			border-radius: 12px;
+		}
+
+		.form-wrapper {
+			max-width: 800px;
+			margin: 0 auto;
+			background: white;
+			padding: 40px;
+			border-radius: 8px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		}
+
+		.form-wrapper h2 {
+			text-align: center;
+			margin-bottom: 30px;
+			color: #333;
+		}
+
+		.form-row {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 20px;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+		}
+
+		.form-group label {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: 500;
+			color: #555;
+		}
+
+		.form-group input,
+		.form-group select,
+		.form-group textarea {
+			width: 100%;
+			padding: 12px;
+			border: 1px solid #ddd;
+			border-radius: 6px;
+			font-size: 16px;
+			transition: border-color 0.3s ease;
+		}
+
+		.form-group input:focus,
+		.form-group select:focus,
+		.form-group textarea:focus {
+			border-color: #1a73e8;
+			outline: none;
+		}
+
+		.checkbox-group {
+			margin-top: 20px;
+		}
+
+		.checkbox-label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			cursor: pointer;
+		}
+
+		.checkbox-label input[type="checkbox"] {
+			width: auto;
+		}
+
+		.submit-btn {
+			width: 100%;
+			padding: 15px;
+			background: #1a73e8;
+			color: white;
+			border: none;
+			border-radius: 6px;
+			font-size: 16px;
+			font-weight: 500;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.submit-btn:hover {
+			background: #1557b0;
+		}
+
+		@media (max-width: 768px) {
+			.form-row {
+				grid-template-columns: 1fr;
+			}
+
+			.process-timeline::before {
+				left: 20px;
+			}
+
+			.process-step {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.step-number {
+				margin-bottom: 20px;
+			}
+
+			.step-content {
+				margin-left: 60px;
+			}
+		}
+
+		.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-login, .btn-signup {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn-login {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-login:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-signup {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-signup:hover {
+    background-color: rgb(0, 30, 200);
+}
+	</style>
+</head>
+
+<body>
+	<header class="app-header">
+		<nav class="main-nav">
+			<div class="logo">
+				<img src="images/lululand-logo-ao1111.png" alt="루루랜드">
+				<a href="index.html"><span class="logo-text">루루랜드</span></a>
+			</div>
+			<ul class="nav-links">
+  				<li><a href="home.html">홈</a></li>
+  				<li><a href="gem-appraisal.html">보석감정 & 인증</a></li>
+  				<li><a href="repair.html">컬러진단 & 매칭</a></li>
+  				<li><a href="counsel.html">스토리 & 클래스</a></li>
+  				<li><a href="color.html">쇼핑 & 추천</a></li>
+  				<li><a href="shopping.html">커뮤니티 & 후기</a></li>
+			</ul>
+			<div class="auth-buttons">
+    <a href="login.html" class="btn-login">로그인</a>
+    <a href="signup.html" class="btn-signup">회원가입</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+
+		<section class="repair-section">
+			<div class="service-cards">
+				<div class="service-card">
+					<div class="service-icon">
+						<i class="fas fa-tools"></i>
+					</div>
+					<h3>보석 수리</h3>
+					<p>전문 장인의 섬세한 기술로 손상된 보석을 복원합니다.</p>
+					<ul class="service-details">
+						<li>보석 세팅 수리</li>
+						<li>체인 및 잠금장치 수리</li>
+						<li>표면 광택 복원</li>
+						<li>변형 교정</li>
+					</ul>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">
+						<i class="fas fa-magic"></i>
+					</div>
+					<h3>주얼리 리폼</h3>
+					<p>오래된 주얼리에 새로운 디자인을 입혀 재탄생시킵니다.</p>
+					<ul class="service-details">
+						<li>디자인 변경</li>
+						<li>사이즈 조절</li>
+						<li>보석 교체</li>
+						<li>재가공</li>
+					</ul>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">
+						<i class="fas fa-spray-can"></i>
+					</div>
+					<h3>세척 및 도금</h3>
+					<p>전문 세척과 도금으로 주얼리의 광택을 되살립니다.</p>
+					<ul class="service-details">
+						<li>초음파 세척</li>
+						<li>도금 서비스</li>
+						<li>표면 처리</li>
+						<li>광택 복원</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="process-section">
+				<h2>수리·리폼 진행 과정</h2>
+				<div class="process-timeline">
+					<div class="process-step">
+						<div class="step-number">1</div>
+						<div class="step-content">
+							<h3>상담 예약</h3>
+							<p>전문가와 1:1 상담을 통해 수리나 리폼 방향을 결정합니다.</p>
+						</div>
+					</div>
+					<div class="process-step">
+						<div class="step-number">2</div>
+						<div class="step-content">
+							<h3>상태 진단</h3>
+							<p>주얼리의 현재 상태를 정밀하게 진단하고 견적을 안내해드립니다.</p>
+						</div>
+					</div>
+					<div class="process-step">
+						<div class="step-number">3</div>
+						<div class="step-content">
+							<h3>작업 진행</h3>
+							<p>숙련된 장인이 정성을 다해 수리 및 리폼 작업을 진행합니다.</p>
+						</div>
+					</div>
+					<div class="process-step">
+						<div class="step-number">4</div>
+						<div class="step-content">
+							<h3>품질 검수</h3>
+							<p>완성된 주얼리의 품질을 꼼꼼히 검수합니다.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="repair-form-container">
+				<div class="form-wrapper">
+					<h2>수리·리폼 상담 예약</h2>
+					<!--<form class="repair-form" id="repairForm">
+						<div class="form-row">
+							<div class="form-group">
+								<label for="name">이름 *</label>
+								<input type="text" id="name" required>
+							</div>
+							<div class="form-group">
+								<label for="phone">연락처 *</label>
+								<input type="tel" id="phone" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="service-type">서비스 종류 *</label>
+							<select id="service-type" required>
+								<option value="">선택해주세요</option>
+								<option value="repair">보석 수리</option>
+								<option value="reform">주얼리 리폼</option>
+								<option value="cleaning">세척 및 도금</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="description">상담 내용 *</label>
+							<textarea id="description" rows="6" placeholder="수리나 리폼하고 싶은 주얼리에 대해 설명해주세요."
+								required></textarea>
+						</div>
+						<div class="form-group checkbox-group">
+							<label class="checkbox-label">
+								<input type="checkbox" required>
+								<span>개인정보 수집 및 이용에 동의합니다. *</span>
+							</label>
+						</div>-->
+						<button type="submit" class="submit-btn">예약하기</button>
+					</form>
+				</div>
+			</div>
+		</section>
+	</main>
+	<!--<img src="image/qr-home.png" width="100" height="100" align="left">-->
+	<footer>
+		<div class="footer-content">
+			<div class="social-links">
+				<a href="https://instagram.com">Instagram</a>
+				<a href="https://facebook.com">Facebook</a>
+				<a href="https://pinterest.com">Pinterest</a>
+				<a href="https://www.youtube.com/@user-leh1234/featured">Youtube</a>
+			</div>
+		</div>
+		<p>루루랜드 COPYRIGHT INFORMATION GOES HERE © 2025. ALL RIGHTS RESERVED.
+			&nbsp; Email:leh2019@naver.com</p>
+	</footer>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Search functionality
+			const searchInput = document.querySelector('.search-input');
+			const searchButton = document.querySelector('.search-button');
+
+			searchButton.addEventListener('click', function () {
+				const searchTerm = searchInput.value.trim();
+				if (searchTerm) {
+					// In a real implementation, this would redirect to search results
+					alert(`Searching for: ${searchTerm}`);
+				}
+			});
+
+			// Enter key search
+			searchInput.addEventListener('keypress', function (e) {
+				if (e.key === 'Enter') {
+					searchButton.click();
+				}
+			});
+
+			// Category card click handlers
+			const categoryCards = document.querySelectorAll('.category-card');
+			categoryCards.forEach(card => {
+				card.addEventListener('click', function () {
+					const category = this.textContent;
+					// In a real implementation, this would redirect to category page
+					alert(`Selected category: ${category}`);
+				});
+			});
+
+			// Product card click handlers
+			const productCards = document.querySelectorAll('.product-card');
+			productCards.forEach(card => {
+				card.addEventListener('click', function () {
+					const productTitle = this.querySelector('.product-title').textContent;
+					// In a real implementation, this would redirect to product page
+					alert(`Selected product: ${productTitle}`);
+				});
+			});
+		});
+	</script>
+
+	<script>
+  function moveToKakaoOpenChat() {
+    if (confirm('카카오톡 오픈채팅으로 이동합니다.')) {
+      // 실제 여러분의 오픈채팅 주소로 변경하세요
+      window.location.href = 'https://open.kakao.com/o/sSykJxJh';
+    }
+  }
+
+  // submit-btn에 대한 이벤트 연결
+  document.addEventListener('DOMContentLoaded', function () {
+    var submitBtn = document.querySelector('.submit-btn');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // 폼 실제 제출 방지
+        moveToKakaoOpenChat();
+      });
+    }
+  });
+</script>
+
+</body>
+
+</html>
