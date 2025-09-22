@@ -8,6 +8,7 @@
 	<meta property="og:title" content="루루랜드" data-dynamic="true" />
 	<link rel="icon" href="image/lululand-logo-ao1111.png" type="image/gif" />
 	<meta name="naver-site-verification" content="de323d100f488986c48584c1c7a9fab0490a3998" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		* {
 			margin: 0;
@@ -531,56 +532,92 @@
 			color: #1a73e8;
 			background-color: #f8f9fa;
 		}
-
-		h2 {
+		h2{
 			margin-top: 10%;
 		}
 
-		.auth-buttons {
-			display: flex;
-			gap: 10px;
-		}
+        .auth-buttons {
+    display: flex;
+    gap: 10px;
+}
 
-		.btn-login,
-		.btn-signup {
-			padding: 0.5rem 1rem;
-			border-radius: 4px;
-			font-weight: 600;
-			text-decoration: none;
-			transition: background 0.3s;
-		}
+.btn-login, .btn-signup {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s;
+}
 
-		.btn-login {
-			background-color: transparent;
-			color: var(--primary-color);
-			border: 1px solid var(--primary-color);
-		}
+.btn-login {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
 
-		.btn-login:hover {
-			background-color: var(--primary-color);
-			color: white;
-		}
+.btn-login:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
 
-		.btn-signup {
-			background-color: var(--primary-color);
-			color: white;
-		}
+.btn-signup {
+    background-color: var(--primary-color);
+    color: white;
+}
 
-		.btn-signup:hover {
-			background-color: rgb(0, 30, 200);
-		}
+.btn-signup:hover {
+    background-color: rgb(0, 30, 200);
+}
 
-		@media screen and (max-width: 768px) {
-			body {
-				font-size: 14px;
-				padding: 10px;
-			}
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+        padding: 10px;
+    }
+    nav {
+        display: none; /* 모바일에서 메뉴 숨기고 햄버거 버튼으로 */
+    }
+}
 
-			nav {
-				display: none;
-				/* 모바일에서 메뉴 숨기고 햄버거 버튼으로 */
-			}
-		}
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
 	</style>
 </head>
 
@@ -592,17 +629,22 @@
 				<a href="index.html"><span class="logo-text">루루랜드</span></a>
 			</div>
 			<ul class="nav-links">
-				<li><a href="home.html">홈</a></li>
-				<li><a href="gem-appraisal.html">보석감정 & 인증</a></li>
-				<li><a href="repair.html">컬러진단 & 매칭</a></li>
-				<li><a href="counsel.html">스토리 & 클래스</a></li>
-				<li><a href="color.html">쇼핑 & 추천</a></li>
-				<li><a href="shopping.html">커뮤니티 & 후기</a></li>
+  				<li><a href="home.html">홈</a></li>
+  				<li><a href="gem-appraisal.html">보석감정 & 인증</a></li>
+  				<li><a href="repair.html">컬러진단 & 매칭</a></li>
+  				<li><a href="counsel.html">스토리 & 클래스</a></li>
+  				<li><a href="color.html">쇼핑 & 추천</a></li>
+  				<li><a href="shopping.html">커뮤니티 & 후기</a></li>
 			</ul>
 			<div class="auth-buttons">
-				<a href="login.html" class="btn-login">로그인</a>
-				<a href="signup.html" class="btn-signup">회원가입</a>
+    <a href="login.html" class="btn-login">로그인</a>
+    <a href="signup.html" class="btn-signup">회원가입</a>
 			</div>
+			<div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 		</nav>
 	</header>
 
@@ -899,14 +941,14 @@
 	</script>-->
 
 	<script>
-		function proceedToPayment(btn) {
-			// 안내 창 표시
-			if (confirm('카카오톡 오픈채팅으로 이동합니다.')) {
-				// 실제 사용하고자 하는 오픈채팅 URL로 변경하세요
-				window.location.href = 'https://open.kakao.com/o/sSykJxJh';
-			}
-		}
-	</script>
+  function proceedToPayment(btn) {
+    // 안내 창 표시
+    if (confirm('카카오톡 오픈채팅으로 이동합니다.')) {
+      // 실제 사용하고자 하는 오픈채팅 URL로 변경하세요
+      window.location.href = 'https://open.kakao.com/o/sSykJxJh';
+    }
+  }
+</script>
 
 </body>
 
