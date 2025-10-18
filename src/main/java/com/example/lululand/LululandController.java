@@ -94,7 +94,10 @@ public class LululandController {
 		String password = loginData.get("password");
 
 		if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-			return ResponseEntity.badRequest().body(Map.of("error", "이메일과 비밀번호를 모두 입력해 주세요."));
+			return ResponseEntity.badRequest().body(Map.of(
+				"success", false,
+				"error", "이메일과 비밀번호를 모두 입력해 주세요."
+			));
 		}
 
 		Lululand metalover = lululandService.findByEmail(email);
@@ -103,9 +106,17 @@ public class LululandController {
 			// ✅ JWT 토큰 생성
 			String token = jwtUtil.generateToken(email);
 
-			return ResponseEntity.ok(Map.of("token", token, "message", "로그인 성공", "user", metalover.getUsername()));
+			return ResponseEntity.ok(Map.of(
+				"success", true,
+				"token", token,
+				"message", "로그인 성공",
+				"user", metalover.getUsername()
+			));
 		} else {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "아이디 또는 비밀번호가 올바르지 않습니다."));
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+				"success", false,
+				"error", "아이디 또는 비밀번호가 올바르지 않습니다."
+			));
 		}
 	}
 
