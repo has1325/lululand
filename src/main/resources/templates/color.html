@@ -323,7 +323,9 @@
 
 		.auth-buttons {
     display: flex;
-    gap: 10px;
+    flex-direction: row; /* 버튼을 가로로 배치 */
+    align-items: center; /* 세로 정렬 중앙 */
+    gap: 10px; /* 버튼 사이 간격 */
 }
 
 .btn-login, .btn-signup {
@@ -332,6 +334,7 @@
     font-weight: 600;
     text-decoration: none;
     transition: background 0.3s;
+    display: inline-block; /* 버튼이 제대로 flex에서 작동하게 */
 }
 
 .btn-login {
@@ -379,12 +382,16 @@
 }
 
 @media screen and (max-width: 768px) {
+  .main-nav { 
+	padding:0.6rem 1rem; 
+}
+
   .nav-links {
     display: none;
     flex-direction: column;
     position: absolute;
     top: 70px;
-    right: 20px;
+    left: 20px;
     background: white;
     padding: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -399,8 +406,61 @@
   }
 
   .auth-buttons {
-    flex-direction: column;
+    flex-direction: row;
     gap: 5px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+			.auth-buttons .text {
+				display: none;
+			}
+			.auth-buttons .icon {
+				font-size: 20px;
+			}
+			.btn-login, .btn-signup {
+				padding: 0.55rem;
+				min-width: 44px;
+				height: 44px;
+				justify-content: center;
+				border-radius: 10px;
+			}
+			.auth-buttons { gap: 8px; }
+		}
+
+		.auth-buttons .text {
+			display: inline;
+		}
+		.auth-buttons .icon {
+			font-size: 18px;
+		}
+
+		/* 모바일 전용 (768px 이하) */
+@media screen and (max-width: 768px) {
+  .auth-buttons .text {
+    display: none; /* 글자 숨기기 */
+  }
+  .auth-buttons .icon {
+	display: inline-block;
+    font-size: 20px; /* 아이콘 크게 */
+  }
+  .btn-login, .btn-signup {
+    padding: 0.55rem;
+    min-width: 40px;
+    height: 40px;
+    justify-content: center;
+    border-radius: 10px;
+  }
+  .auth-buttons { gap: 8px; }
+}
+
+/* PC 전용 (769px 이상) */
+@media screen and (min-width: 769px) {
+  .auth-buttons .text {
+    display: inline-block; /* 글자 보이기 */
+  }
+  .auth-buttons .icon {
+    display: none;
   }
 }
 	</style>
@@ -409,27 +469,33 @@
 <body>
 	<header class="app-header">
 		<nav class="main-nav">
-			<div class="logo">
-				<img src="images/lululand-logo-ao1111.png" alt="루루랜드">
-				<a href="index.html"><span class="logo-text">루루랜드</span></a>
-			</div>
-			<ul class="nav-links">
-  				<li><a href="home.html">홈</a></li>
-  				<li><a href="gem-appraisal.html">보석감정 & 인증</a></li>
-  				<li><a href="color.html">컬러진단 & 매칭</a></li>
-  				<li><a href="repair.html">스토리 & 클래스</a></li>
-  				<li><a href="shopping.html">쇼핑 & 추천</a></li>
-  				<li><a href="counsel.html">커뮤니티 & 후기</a></li>
-			</ul>
-			<div class="auth-buttons">
-    <a href="login.html" class="btn-login">로그인</a>
-    <a href="signup.html" class="btn-signup">회원가입</a>
-			</div>
 			<div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
       <span></span>
       <span></span>
       <span></span>
     </div>
+			<div class="logo">
+				<img src="images/lululand-logo-ao1111.png" alt="루루랜드">
+				<a href="index.html"><span class="logo-text">루루랜드</span></a>
+			</div>
+			<ul class="nav-links">
+				<!--<li><a href="home.html" data-i18n="nav.home">홈</a></li>-->
+				<li><a href="repair.html" data-i18n="nav.repair">주얼리 디자인 리폼</a></li>
+				<li><a href="gem-appraisal.html" data-i18n="nav.gem">보석 감정 & 인증</a></li>
+				<li><a href="color.html" data-i18n="nav.color">보석컬러심리</a></li>
+				<li><a href="shopping.html" data-i18n="nav.shopping">쇼핑 & 추천</a></li>
+				<li><a href="counsel.html" data-i18n="nav.counsel">스토리 & 커뮤니티</a></li>
+			</ul>
+			<div class="auth-buttons">
+			<a href="login.html" class="btn-login" aria-label="로그인">
+				<span class="icon" aria-hidden="true">🔒</span>
+				<span class="text">로그인</span>
+			</a>
+			<a href="signup.html" class="btn-signup" aria-label="회원가입">
+				<span class="icon" aria-hidden="true">📝</span>
+				<span class="text">회원가입</span>
+			</a>
+		</div>
 		</nav>
 	</header>
 
@@ -454,6 +520,17 @@
 		</section>
 
 		<section class="section">
+			<h2>인기 색상 팔레트</h2>
+			<div class="color-palette">
+				<div class="color-card" style="background-color: #FF6B6B">#FF6B6B</div>
+				<div class="color-card" style="background-color: #4ECDC4">#4ECDC4</div>
+				<div class="color-card" style="background-color: #45B7D1">#45B7D1</div>
+				<div class="color-card" style="background-color: #96CEB4">#96CEB4</div>
+				<div class="color-card" style="background-color: #FFEEAD">#FFEEAD</div>
+			</div>
+		</section>
+
+		<section class="section">
 			<h2>색채 이론</h2>
 			<div class="color-theory">
 				<div class="theory-card">
@@ -468,17 +545,6 @@
 					<h3>색온도</h3>
 					<p>따뜻한 색상(빨강, 주황)은 활력을 주고, 차가운 색상(파랑, 초록)은 차분함을 줍니다.</p>
 				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<h2>인기 색상 팔레트</h2>
-			<div class="color-palette">
-				<div class="color-card" style="background-color: #FF6B6B">#FF6B6B</div>
-				<div class="color-card" style="background-color: #4ECDC4">#4ECDC4</div>
-				<div class="color-card" style="background-color: #45B7D1">#45B7D1</div>
-				<div class="color-card" style="background-color: #96CEB4">#96CEB4</div>
-				<div class="color-card" style="background-color: #FFEEAD">#FFEEAD</div>
 			</div>
 		</section>
 	</div>
@@ -575,7 +641,7 @@
 			</div>
 		</div>
 		<p>루루랜드 COPYRIGHT INFORMATION GOES HERE © 2025. ALL RIGHTS RESERVED.
-			&nbsp; Email:leh2019@naver.com</p>
+			&nbsp;</p>
 	</footer>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

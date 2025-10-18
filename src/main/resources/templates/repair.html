@@ -469,7 +469,9 @@
 
 		.auth-buttons {
     display: flex;
-    gap: 10px;
+    flex-direction: row; /* 버튼을 가로로 배치 */
+    align-items: center; /* 세로 정렬 중앙 */
+    gap: 10px; /* 버튼 사이 간격 */
 }
 
 .btn-login, .btn-signup {
@@ -478,6 +480,7 @@
     font-weight: 600;
     text-decoration: none;
     transition: background 0.3s;
+    display: inline-block; /* 버튼이 제대로 flex에서 작동하게 */
 }
 
 .btn-login {
@@ -525,12 +528,16 @@
 }
 
 @media screen and (max-width: 768px) {
+  .main-nav { 
+	padding:0.6rem 1rem; 
+}
+
   .nav-links {
     display: none;
     flex-direction: column;
     position: absolute;
     top: 70px;
-    right: 20px;
+    left: 20px;
     background: white;
     padding: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -545,44 +552,211 @@
   }
 
   .auth-buttons {
-    flex-direction: column;
+    flex-direction: row;
     gap: 5px;
   }
 }
+
+@media screen and (max-width: 768px) {
+			.auth-buttons .text {
+				display: none;
+			}
+			.auth-buttons .icon {
+				font-size: 20px;
+			}
+			.btn-login, .btn-signup {
+				padding: 0.55rem;
+				min-width: 44px;
+				height: 44px;
+				justify-content: center;
+				border-radius: 10px;
+			}
+			.auth-buttons { gap: 8px; }
+		}
+
+		.auth-buttons .text {
+			display: inline;
+		}
+		.auth-buttons .icon {
+			font-size: 18px;
+		}
+
+		/* 모바일 전용 (768px 이하) */
+@media screen and (max-width: 768px) {
+  .auth-buttons .text {
+    display: none; /* 글자 숨기기 */
+  }
+  .auth-buttons .icon {
+	display: inline-block;
+    font-size: 20px; /* 아이콘 크게 */
+  }
+  .btn-login, .btn-signup {
+    padding: 0.55rem;
+    min-width: 40px;
+    height: 40px;
+    justify-content: center;
+    border-radius: 10px;
+  }
+  .auth-buttons { gap: 8px; }
+}
+
+/* PC 전용 (769px 이상) */
+@media screen and (min-width: 769px) {
+  .auth-buttons .text {
+    display: inline-block; /* 글자 보이기 */
+  }
+  .auth-buttons .icon {
+    display: none;
+  }
+}
+
+@media (max-width:520px){
+      #jewel-finder {
+        padding:15px 12px;
+      }
+      #jewel-finder h2 {
+        font-size: 1.3rem;
+      }
+      #jewel-finder h3 {
+        font-size: 1.05rem;
+      }
+      #jewel-finder p {
+        font-size: 0.9rem;
+      }
+      #jewel-finder [data-question] > div button {
+        flex: 1 1 100% !important;
+        font-size: 0.95rem !important;
+        padding: 10px !important;
+      }
+      #jewel-finder button#jf-next-btn,
+      #jewel-finder button#jf-go-class,
+      #jewel-finder button#jf-restart,
+      #jewel-finder button#jf-apply-class,
+      #jewel-finder button#jf-back-to-result {
+        width: 100% !important;
+        padding: 12px 0 !important;
+        margin-bottom: 12px !important;
+      }
+    }
 	</style>
 </head>
 
 <body>
 	<header class="app-header">
 		<nav class="main-nav">
-			<div class="logo">
-				<img src="images/lululand-logo-ao1111.png" alt="루루랜드">
-				<a href="index.html"><span class="logo-text">루루랜드</span></a>
-			</div>
-			<ul class="nav-links">
-  				<li><a href="home.html">홈</a></li>
-  				<li><a href="gem-appraisal.html">보석감정 & 인증</a></li>
-  				<li><a href="color.html">컬러진단 & 매칭</a></li>
-  				<li><a href="repair.html">스토리 & 클래스</a></li>
-  				<li><a href="shopping.html">쇼핑 & 추천</a></li>
-  				<li><a href="counsel.html">커뮤니티 & 후기</a></li>
-			</ul>
-			<div class="auth-buttons">
-    <a href="login.html" class="btn-login">로그인</a>
-    <a href="signup.html" class="btn-signup">회원가입</a>
-			</div>
 			<div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
       <span></span>
       <span></span>
       <span></span>
     </div>
+			<div class="logo">
+				<img src="images/lululand-logo-ao1111.png" alt="루루랜드">
+				<a href="index.html"><span class="logo-text">루루랜드</span></a>
+			</div>
+			<ul class="nav-links">
+				<!--<li><a href="home.html" data-i18n="nav.home">홈</a></li>-->
+				<li><a href="repair.html" data-i18n="nav.repair">주얼리 디자인 리폼</a></li>
+				<li><a href="gem-appraisal.html" data-i18n="nav.gem">보석 감정 & 인증</a></li>
+				<li><a href="color.html" data-i18n="nav.color">보석컬러심리</a></li>
+				<li><a href="shopping.html" data-i18n="nav.shopping">쇼핑 & 추천</a></li>
+				<li><a href="counsel.html" data-i18n="nav.counsel">스토리 & 커뮤니티</a></li>
+			</ul>
+			<div class="auth-buttons">
+			<a href="login.html" class="btn-login" aria-label="로그인">
+				<span class="icon" aria-hidden="true">🔒</span>
+				<span class="text">로그인</span>
+			</a>
+			<a href="signup.html" class="btn-signup" aria-label="회원가입">
+				<span class="icon" aria-hidden="true">📝</span>
+				<span class="text">회원가입</span>
+			</a>
+		</div>
 		</nav>
 	</header>
 
 	<main>
 
 		<section class="repair-section">
-			<div class="service-cards">
+
+			<div id="jewel-finder" style="max-width:480px; margin:auto; font-family:'Noto Sans KR', sans-serif; background:#ffffff; border-radius:12px; padding:20px; box-shadow:0 0 15px rgba(0,0,0,0.1); color:#333;">
+
+  <!-- 진행 바 -->
+  <div style="width:100%; height:8px; background:#eee; border-radius:8px; overflow:hidden; margin-bottom:25px;">
+    <div id="jf-progress" style="height:100%; width:0%; background:#000000; transition:width 0.4s;"></div>
+  </div>
+
+  <!-- 1단계: 퀴즈 -->
+  <section data-step="1">
+    <h2 style="color:#000000; text-align:center; margin-bottom:10px;">나에게 꼭 맞는 인생 보석 찾기</h2>
+    <p style="text-align:center; color:#666; margin-bottom:30px;">간단한 질문에 답해 당신만의 보석을 찾아보세요.</p>
+    <div data-question="1" style="margin-bottom:25px;">
+      <h3 style="font-weight:600; margin-bottom:15px;">1. 당신이 가장 좋아하는 색은?</h3>
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <button type="button" data-answer="red" style="flex:1 1 calc(50% - 10px); background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">빨강</button>
+        <button type="button" data-answer="blue" style="flex:1 1 calc(50% - 10px); background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">파랑</button>
+        <button type="button" data-answer="green" style="flex:1 1 calc(50% - 10px); background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">녹색</button>
+        <button type="button" data-answer="purple" style="flex:1 1 calc(50% - 10px); background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">보라</button>
+        <button type="button" data-answer="yellow" style="flex:1 1 calc(50% - 10px); background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">노랑</button>
+        <button type="button" data-answer="white" style="flex:1 1 calc(50% - 10px); background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">흰색</button>
+        <button type="button" data-answer="black" style="flex:1 1 calc(50% - 10px); background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">검정</button>
+      </div>
+    </div>
+
+    <div data-question="2" style="display:none; margin-bottom:25px;">
+      <h3 style="font-weight:600; margin-bottom:15px;">2. 당신의 하루 일과 중 가장 행복한 순간은?</h3>
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <button type="button" data-answer="morning_coffee" style="flex:1 1 100%; background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">아침 햇살 맞으며 커피 한 잔</button>
+        <button type="button" data-answer="friends_laugh" style="flex:1 1 100%; background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">친구와 웃음꽃 피울 때</button>
+        <button type="button" data-answer="reading" style="flex:1 1 100%; background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">혼자 조용히 책 읽을 때</button>
+        <button type="button" data-answer="music_walk" style="flex:1 1 100%; background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">음악 들으며 산책할 때</button>
+      </div>
+    </div>
+
+    <div data-question="3" style="display:none; margin-bottom:25px;">
+      <h3 style="font-weight:600; margin-bottom:15px;">3. 평소 스타일은 어떤 편인가요?</h3>
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <button type="button" data-answer="modern" style="flex:1 1 100%; background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">세련되고 모던한 스타일</button>
+        <button type="button" data-answer="vintage" style="flex:1 1 100%; background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">빈티지 & 클래식</button>
+        <button type="button" data-answer="flashy" style="flex:1 1 100%; background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">화려하고 눈에 띄는</button>
+        <button type="button" data-answer="simple" style="flex:1 1 100%; background:#ffffff; border:2px solid #000000; border-radius:8px; padding:12px; cursor:pointer;">심플하고 자연스러운</button>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:30px;">
+      <button id="jf-next-btn" disabled style="background:#0008ff; color:#fff; border:none; padding:12px 30px; border-radius:8px; cursor:pointer; font-weight:600;">다음 질문</button>
+    </div>
+  </section>
+
+  <!-- 2단계: 결과 -->
+  <section data-step="2" style="display:none;">
+    <h2 style="color:#0008ff; text-align:center;">당신만의 인생 스토리와 어울리는 보석은?</h2>
+    <div id="jf-result" style="text-align:center; margin-top:20px;">
+      <!-- 결과 표시 -->
+    </div>
+    <div style="text-align:center; margin-top:30px;">
+      <button id="jf-go-class" style="background:#0008ff; color:#fff; border:none; padding:12px 24px; border-radius:8px; cursor:pointer; font-weight:600; margin-right:12px;">나만의 보석 만들기 클래스 신청하기</button>
+      <button id="jf-restart" style="background:#aaa; color:#fff; border:none; padding:12px 24px; border-radius:8px; cursor:pointer; font-weight:600;">처음으로 돌아가기</button>
+    </div>
+  </section>
+
+  <!-- 3단계: 클래스 안내 -->
+  <section data-step="3" style="display:none;">
+    <h2 style="color:#0008ff; text-align:center;">나만의 보석, 직접 만들어볼까요?</h2>
+    <p style="text-align:center; margin:15px 0;">인생 스토리를 담아 특별한 보석을 직접 디자인하고 만드는 클래스에 참여하세요.</p>
+    <ul style="list-style:none; padding:0; margin:0 0 25px 0; color:#555;">
+      <li><strong>일정:</strong> 매주 토요일 오후 2시</li>
+      <li><strong>장소:</strong> 서울 강남 보석공방 또는 온라인</li>
+      <li><strong>참가비:</strong> 8만원 (재료비 포함)</li>
+    </ul>
+    <div style="text-align:center;">
+      <button id="jf-apply-class" style="background:#0008ff; color:#fff; border:none; padding:12px 30px; border-radius:8px; cursor:pointer; font-weight:600; margin-right:12px;">지금 신청하기</button>
+      <button id="jf-back-to-result" style="background:#aaa; color:#fff; border:none; padding:12px 24px; border-radius:8px; cursor:pointer; font-weight:600;">결과로 돌아가기</button>
+    </div>
+  </section>
+
+</div>
+
+			<!--<div class="service-cards">
 				<div class="service-card">
 					<div class="service-icon">
 						<i class="fas fa-tools"></i>
@@ -595,8 +769,8 @@
 						<li>표면 광택 복원</li>
 						<li>변형 교정</li>
 					</ul>
-				</div>
-				<div class="service-card">
+				</div>-->
+				<!--<div class="service-card">
 					<div class="service-icon">
 						<i class="fas fa-magic"></i>
 					</div>
@@ -691,8 +865,8 @@
 								<input type="checkbox" required>
 								<span>개인정보 수집 및 이용에 동의합니다. *</span>
 							</label>
-						</div>-->
-						<button type="submit" class="submit-btn">예약하기</button>
+						</div>
+						<button type="submit" class="submit-btn">예약하기</button>-->
 					</form>
 				</div>
 			</div>
@@ -709,7 +883,7 @@
 			</div>
 		</div>
 		<p>루루랜드 COPYRIGHT INFORMATION GOES HERE © 2025. ALL RIGHTS RESERVED.
-			&nbsp; Email:leh2019@naver.com</p>
+			&nbsp;</p>
 	</footer>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -777,6 +951,127 @@
       });
     }
   });
+</script>
+
+<script>
+(function(){
+  const container = document.getElementById('jewel-finder');
+  const steps = container.querySelectorAll('section[data-step]');
+  const progressBar = container.querySelector('#jf-progress');
+  const nextBtn = container.querySelector('#jf-next-btn');
+  const questions = container.querySelectorAll('[data-question]');
+  const resultBox = container.querySelector('#jf-result');
+
+  let currentStep = 1;
+  let currentQuestion = 0;
+  let answers = [];
+
+  function updateProgress(){
+    const percent = ((currentQuestion+1)/questions.length)*100;
+    progressBar.style.width = percent + '%';
+  }
+
+  function showQuestion(index){
+    questions.forEach((q,i) => {
+      q.style.display = i === index ? 'block' : 'none';
+    });
+    nextBtn.disabled = true;
+    updateProgress();
+  }
+
+  function showStep(step){
+    steps.forEach(s => {
+      s.style.display = s.getAttribute('data-step') == step ? 'block' : 'none';
+    });
+    if(step === 1){
+      currentQuestion = 0;
+      showQuestion(currentQuestion);
+      updateProgress();
+    } else if(step === 2){
+      progressBar.style.width = '100%';
+      displayResult();
+    }
+  }
+
+  function displayResult(){
+    // 간단 예시로 첫번째 답변에 따라 결과 분기
+    let jewelName = "행운의 루비";
+    let jewelDesc = "빨강을 좋아하는 당신에게 딱 맞는 열정의 루비 보석입니다.";
+    if(answers[0] === 'blue'){
+      jewelName = "평화의 사파이어";
+      jewelDesc = "파랑을 사랑하는 당신에게 어울리는 차분한 사파이어 보석입니다.";
+    } else if(answers[0] === 'green'){
+      jewelName = "자연의 에메랄드";
+      jewelDesc = "녹색을 좋아하는 당신에게 싱그러운 에메랄드 보석을 추천합니다.";
+    } else if(answers[0] === 'purple'){
+      jewelName = "신비의 자수정";
+      jewelDesc = "보라색을 선호하는 당신에게 매혹적인 자수정 보석이 잘 어울립니다.";
+    } else if(answers[0] === 'yellow'){
+      jewelName = "희망의 황수정";
+      jewelDesc = "노란색을 사랑하는 당신에게 활기찬 황수정 보석을 추천해요.";
+    } else if(answers[0] === 'white'){
+      jewelName = "순수의 진주";
+      jewelDesc = "흰색을 좋아하는 당신에게 순수한 진주 보석이 어울립니다.";
+    } else if(answers[0] === 'black'){
+      jewelName = "우아한 흑요석";
+      jewelDesc = "검은색을 선호하는 당신에게 우아한 흑요석을 추천합니다.";
+    }
+    resultBox.innerHTML = `
+      <h3 style="color:#0008ff; margin-bottom:12px;">${jewelName}</h3>
+      <p style="font-size:1rem; color:#555;">${jewelDesc}</p>
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="${jewelName}" style="width:120px; margin-top:15px;">
+    `;
+  }
+
+  // 답변 버튼 클릭
+  questions.forEach((question, qIndex) => {
+    question.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // 선택 시 스타일 반영
+        question.querySelectorAll('button').forEach(b => b.style.background = '#ffffff');
+        btn.style.background = '#77a0ff';
+        answers[qIndex] = btn.getAttribute('data-answer');
+        nextBtn.disabled = false;
+      });
+    });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if(currentQuestion < questions.length - 1){
+      currentQuestion++;
+      showQuestion(currentQuestion);
+    } else {
+      currentStep = 2;
+      showStep(currentStep);
+    }
+  });
+
+  // 결과 화면 버튼
+  container.querySelector('#jf-go-class').addEventListener('click', () => {
+    currentStep = 3;
+    showStep(currentStep);
+  });
+  container.querySelector('#jf-restart').addEventListener('click', () => {
+    answers = [];
+    currentStep = 1;
+    currentQuestion = 0;
+    showStep(currentStep);
+  });
+
+  // 클래스 안내 단계 버튼
+  container.querySelector('#jf-apply-class').addEventListener('click', () => {
+    alert('클래스 신청 페이지로 이동합니다.');
+    // 실제 링크 이동 필요시 location.href = '신청페이지URL';
+  });
+  container.querySelector('#jf-back-to-result').addEventListener('click', () => {
+    currentStep = 2;
+    showStep(currentStep);
+  });
+
+  // 초기 로드
+  showStep(1);
+
+})();
 </script>
 
 </body>

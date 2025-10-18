@@ -438,6 +438,8 @@
 		}
 
 		.product-filters {
+			margin-top: 60px;
+			/* 원하는 만큼 아래로 내리기 (기존보다 아래로 이동) */
 			display: flex;
 			gap: 10px;
 			margin-bottom: 30px;
@@ -532,124 +534,400 @@
 			color: #1a73e8;
 			background-color: #f8f9fa;
 		}
-		h2{
+
+		h2 {
 			margin-top: 10%;
 		}
 
-        .auth-buttons {
-    display: flex;
-    gap: 10px;
-}
+		.auth-buttons {
+			display: flex;
+			flex-direction: row;
+			/* 버튼을 가로로 배치 */
+			align-items: center;
+			/* 세로 정렬 중앙 */
+			gap: 10px;
+			/* 버튼 사이 간격 */
+		}
 
-.btn-login, .btn-signup {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background 0.3s;
-}
+		.btn-login,
+		.btn-signup {
+			padding: 0.5rem 1rem;
+			border-radius: 4px;
+			font-weight: 600;
+			text-decoration: none;
+			transition: background 0.3s;
+			display: inline-block;
+			/* 버튼이 제대로 flex에서 작동하게 */
+		}
 
-.btn-login {
-    background-color: transparent;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-}
+		.btn-login {
+			background-color: transparent;
+			color: var(--primary-color);
+			border: 1px solid var(--primary-color);
+		}
 
-.btn-login:hover {
-    background-color: var(--primary-color);
-    color: white;
-}
+		.btn-login:hover {
+			background-color: var(--primary-color);
+			color: white;
+		}
 
-.btn-signup {
-    background-color: var(--primary-color);
-    color: white;
-}
+		.btn-signup {
+			background-color: var(--primary-color);
+			color: white;
+		}
 
-.btn-signup:hover {
-    background-color: rgb(0, 30, 200);
-}
+		.btn-signup:hover {
+			background-color: rgb(0, 30, 200);
+		}
 
-@media screen and (max-width: 768px) {
-    body {
-        font-size: 14px;
-        padding: 10px;
-    }
-    nav {
-        display: none; /* 모바일에서 메뉴 숨기고 햄버거 버튼으로 */
-    }
-}
+		@media screen and (max-width: 768px) {
+			body {
+				font-size: 14px;
+				padding: 10px;
+			}
 
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-}
+			nav {
+				display: none;
+				/* 모바일에서 메뉴 숨기고 햄버거 버튼으로 */
+			}
+		}
 
-.menu-toggle span {
-  width: 25px;
-  height: 3px;
-  background: #333;
-  border-radius: 2px;
-}
+		.menu-toggle {
+			display: none;
+			flex-direction: column;
+			cursor: pointer;
+			gap: 5px;
+		}
 
-@media screen and (max-width: 768px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    background: white;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
+		.menu-toggle span {
+			width: 25px;
+			height: 3px;
+			background: #333;
+			border-radius: 2px;
+		}
 
-  .nav-links.active {
-    display: flex;
-  }
+		@media screen and (max-width: 768px) {
+			.main-nav {
+				padding: 0.6rem 1rem;
+			}
 
-  .menu-toggle {
-    display: flex;
-  }
+			.nav-links {
+				display: none;
+				flex-direction: column;
+				position: absolute;
+				top: 70px;
+				left: 20px;
+				background: white;
+				padding: 1rem;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+			}
 
-  .auth-buttons {
-    flex-direction: column;
-    gap: 5px;
-  }
-}
+			.nav-links.active {
+				display: flex;
+			}
+
+			.menu-toggle {
+				display: flex;
+			}
+
+			.auth-buttons {
+				flex-direction: row;
+				gap: 5px;
+			}
+		}
+
+		@media screen and (max-width: 768px) {
+			.auth-buttons .text {
+				display: none;
+			}
+
+			.auth-buttons .icon {
+				font-size: 20px;
+			}
+
+			.btn-login,
+			.btn-signup {
+				padding: 0.55rem;
+				min-width: 44px;
+				height: 44px;
+				justify-content: center;
+				border-radius: 10px;
+			}
+
+			.auth-buttons {
+				gap: 8px;
+			}
+		}
+
+		.auth-buttons .text {
+			display: inline;
+		}
+
+		.auth-buttons .icon {
+			font-size: 18px;
+		}
+
+		/* 모바일 전용 (768px 이하) */
+		@media screen and (max-width: 768px) {
+			.auth-buttons .text {
+				display: none;
+				/* 글자 숨기기 */
+			}
+
+			.auth-buttons .icon {
+				display: inline-block;
+				font-size: 20px;
+				/* 아이콘 크게 */
+			}
+
+			.btn-login,
+			.btn-signup {
+				padding: 0.55rem;
+				min-width: 40px;
+				height: 40px;
+				justify-content: center;
+				border-radius: 10px;
+			}
+
+			.auth-buttons {
+				gap: 8px;
+			}
+		}
+
+		/* PC 전용 (769px 이상) */
+		@media screen and (min-width: 769px) {
+			.auth-buttons .text {
+				display: inline-block;
+				/* 글자 보이기 */
+			}
+
+			.auth-buttons .icon {
+				display: none;
+			}
+		}
+
+		@media screen and (max-width: 768px) {
+			.product-container {
+				display: grid !important;
+				grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+				column-gap: 14px !important;
+				row-gap: 20px !important;
+				padding: 10px !important;
+				justify-content: center !important;
+			}
+
+			.product-card {
+				width: 100% !important;
+				max-width: none !important;
+				margin: 0 auto !important;
+				box-sizing: border-box !important;
+			}
+
+			.product-card img {
+				width: 100% !important;
+				height: auto !important;
+				object-fit: cover !important;
+				display: block !important;
+			}
+
+			.product-card h3 {
+				font-size: 15px !important;
+				margin: 8px 0 4px 0 !important;
+			}
+
+			.product-card p {
+				font-size: 13px !important;
+				line-height: 1.3 !important;
+			}
+
+			.product-card button {
+				font-size: 13px !important;
+				padding: 6px 10px !important;
+			}
+
+			.filter-buttons {
+				display: flex !important;
+				flex-wrap: wrap !important;
+				justify-content: center !important;
+				gap: 8px !important;
+				margin: 15px 0 !important;
+			}
+
+			.filter-buttons button {
+				flex: 1 1 45% !important;
+				min-width: 100px !important;
+				font-size: 13px !important;
+				padding: 8px 0 !important;
+			}
+		}
+
+		.product-cards {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			/* 자동으로 정렬 */
+			gap: 24px;
+			justify-items: center;
+			/* 가운데 정렬 */
+			align-items: start;
+			width: 100%;
+			max-width: 1200px;
+			/* 페이지 폭 제한 */
+			margin: 0 auto;
+			/* 가운데 배치 */
+			box-sizing: border-box;
+		}
+
+		.product-card {
+			width: 100%;
+			max-width: 360px;
+			/* 카드 크기 고정 */
+		}
+
+		/* ✅ 모바일 화면에서는 한 줄에 하나씩 정렬 */
+		@media screen and (max-width: 768px) {
+			.product-cards {
+				grid-template-columns: 1fr;
+				gap: 16px;
+				justify-items: center;
+				padding: 0 10px;
+			}
+
+			.product-card {
+				width: 100%;
+				max-width: 400px;
+			}
+		}
+
+		/* ✅ 상품 이미지 비율 및 반응형 대응 */
+		.product-card img {
+			width: 100%;
+			/* 카드 폭에 맞게 */
+			height: auto;
+			/* 세로 비율 자동 유지 */
+			border-radius: 12px;
+			/* 모서리 둥글게 */
+			object-fit: cover;
+			/* 이미지 비율 유지하며 꽉 채우기 */
+			display: block;
+			/* 여백 제거 */
+		}
+
+		/* ✅ 모바일 화면에서 이미지 깨지지 않게 */
+		@media screen and (max-width: 768px) {
+			.product-card img {
+				width: 100%;
+				height: auto;
+				/* 너무 커지지 않게 제한 */
+				object-fit: cover;
+				/* 비율 유지 */
+			}
+		}
+
+		/* ✅ 모바일 화면에서 product-image를 정사각형으로 표시 (완벽 버전) */
+		@media screen and (max-width: 768px) {
+			.product-image {
+				width: 100%;
+				position: relative;
+				padding-top: 100%;
+				/* 1:1 비율 유지 (정사각형 핵심) */
+				overflow: hidden;
+			}
+
+			.product-image img {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				/* 정사각형 영역에 꽉 차게 */
+			}
+		}
+
+		.product-modal {
+			display: none;
+			position: fixed;
+			z-index: 1000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.6);
+			justify-content: center;
+			align-items: center;
+		}
+
+		.modal-content {
+			background: #fff;
+			padding: 2rem;
+			border-radius: 12px;
+			max-width: 400px;
+			width: 90%;
+			position: relative;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+			animation: fadeIn 0.3s ease;
+		}
+
+		.close-btn {
+			position: absolute;
+			top: 10px;
+			right: 15px;
+			background: transparent;
+			border: none;
+			font-size: 1.8rem;
+			cursor: pointer;
+			color: #333;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: scale(0.95);
+			}
+
+			to {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
 	</style>
 </head>
 
 <body>
 	<header class="app-header">
 		<nav class="main-nav">
+			<div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
 			<div class="logo">
 				<img src="images/lululand-logo-ao1111.png" alt="루루랜드">
 				<a href="index.html"><span class="logo-text">루루랜드</span></a>
 			</div>
 			<ul class="nav-links">
-  				<li><a href="home.html">홈</a></li>
-  				<li><a href="gem-appraisal.html">보석감정 & 인증</a></li>
-  				<li><a href="color.html">컬러진단 & 매칭</a></li>
-  				<li><a href="repair.html">스토리 & 클래스</a></li>
-  				<li><a href="shopping.html">쇼핑 & 추천</a></li>
-  				<li><a href="counsel.html">커뮤니티 & 후기</a></li>
+				<!--<li><a href="home.html" data-i18n="nav.home">홈</a></li>-->
+				<li><a href="repair.html" data-i18n="nav.repair">주얼리 디자인 리폼</a></li>
+				<li><a href="gem-appraisal.html" data-i18n="nav.gem">보석 감정 & 인증</a></li>
+				<li><a href="color.html" data-i18n="nav.color">보석컬러심리</a></li>
+				<li><a href="shopping.html" data-i18n="nav.shopping">쇼핑 & 추천</a></li>
+				<li><a href="counsel.html" data-i18n="nav.counsel">스토리 & 커뮤니티</a></li>
 			</ul>
 			<div class="auth-buttons">
-    <a href="login.html" class="btn-login">로그인</a>
-    <a href="signup.html" class="btn-signup">회원가입</a>
+				<a href="login.html" class="btn-login" aria-label="로그인">
+					<span class="icon" aria-hidden="true">🔒</span>
+					<span class="text">로그인</span>
+				</a>
+				<a href="signup.html" class="btn-signup" aria-label="회원가입">
+					<span class="icon" aria-hidden="true">📝</span>
+					<span class="text">회원가입</span>
+				</a>
 			</div>
-			<div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
 		</nav>
 	</header>
 
 	<main>
-		<h2>준비중</h2>
+		<!--<h2>준비중</h2>-->
 		<!--<section class="product-filters">
 			<div class="filter-container">
 				<button class="filter-btn active">전체</button>
@@ -658,7 +936,7 @@
 				<button class="filter-btn">반지</button>
 				<button class="filter-btn">팔찌</button>
 			</div>
-		</section>
+		</section>-->
 
 		<section class="financial-products">
 			<div class="product-filters">
@@ -672,7 +950,7 @@
 				<div class="product-card" data-category="목걸이">
 					<span class="product-label">목걸이</span>
 					<div class="product-image">
-						<img src="@{/static/image/1758938009-1-a.jpg}" alt="목걸이">
+						<img th:src="@{/static/images/savings-plus.jpg}" alt="목걸이">
 					</div>
 					<div class="product-info">
 						<h3>목걸이</h3>
@@ -717,7 +995,7 @@
 				<div class="product-card" data-category="반지">
 					<span class="product-label">반지</span>
 					<div class="product-image">
-						<img th:src="@{/static/images/savings-plus.jpg}" alt="반지">
+						<img src="./images/미니멀리스트1.jpg" alt="반지">
 					</div>
 					<div class="product-info">
 						<h3>반지</h3>
@@ -730,7 +1008,13 @@
 					</div>
 				</div>
 			</div>
-		</section>-->
+		</section>
+		<div id="productModal" class="product-modal">
+			<div class="modal-content">
+				<button class="close-btn">&times;</button>
+				<div id="modalText"></div>
+			</div>
+		</div>
 	</main>
 	<!--<img src="image/qr-home.png" width="100" height="100" align="left">-->
 	<footer>
@@ -743,7 +1027,7 @@
 			</div>
 		</div>
 		<p>루루랜드 COPYRIGHT INFORMATION GOES HERE © 2025. ALL RIGHTS RESERVED.
-			&nbsp; Email:leh2019@naver.com</p>
+			&nbsp;</p>
 	</footer>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -941,14 +1225,41 @@
 	</script>-->
 
 	<script>
-  function proceedToPayment(btn) {
-    // 안내 창 표시
-    if (confirm('카카오톡 오픈채팅으로 이동합니다.')) {
-      // 실제 사용하고자 하는 오픈채팅 URL로 변경하세요
-      window.location.href = 'https://open.kakao.com/o/sSykJxJh';
-    }
-  }
-</script>
+		function proceedToPayment(btn) {
+			// 안내 창 표시
+			if (confirm('카카오톡 오픈채팅으로 이동합니다.')) {
+				// 실제 사용하고자 하는 오픈채팅 URL로 변경하세요
+				window.location.href = 'https://open.kakao.com/o/sSykJxJh';
+			}
+		}
+	</script>
+
+	<script>
+		document.querySelectorAll('.product-card').forEach(card => {
+			const img = card.querySelector('.product-image img');
+			img.addEventListener('click', () => {
+				const title = card.querySelector('h3').innerText;
+				const desc = Array.from(card.querySelectorAll('p'))
+					.map(p => p.innerText)
+					.join('<br>');
+				document.getElementById('modalText').innerHTML = `
+      <h2>${title}</h2>
+      <p>${desc}</p>
+    `;
+				document.getElementById('productModal').style.display = 'flex';
+			});
+		});
+
+		document.querySelector('.close-btn').addEventListener('click', () => {
+			document.getElementById('productModal').style.display = 'none';
+		});
+
+		window.addEventListener('click', (e) => {
+			if (e.target.id === 'productModal') {
+				document.getElementById('productModal').style.display = 'none';
+			}
+		});
+	</script>
 
 </body>
 
