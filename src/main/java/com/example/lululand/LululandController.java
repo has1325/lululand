@@ -63,6 +63,35 @@ public class LululandController {
 		model.addAttribute("userDto", new UserCreateForm());
 		return "signup";
 	}
+	
+	@GetMapping("/api/me")
+	@ResponseBody
+	public ResponseEntity<?> me1(@RequestHeader(value = "Authorization", required = false) String authHeader) {
+	    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "토큰이 제공되지 않았습니다."));
+	    }
+	    String token = authHeader.substring(7);
+	    try {
+	        if (!jwtUtil.validateToken(token)) {
+	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "유효하지 않은 토큰입니다."));
+	        }
+	        String email = jwtUtil.extractUsername(token);
+	        Lululand user = lululandService.findByEmail(email);
+	        if (user == null) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "사용자를 찾을 수 없습니다."));
+	        }
+
+	        // ✅ 관리자 식별용 userid 추가
+	        return ResponseEntity.ok(Map.of(
+	            "user", user.getUsername(),
+	            "email", user.getEmail(),
+	            "userid", user.getUserid()   // 🔥 이 한 줄만 추가
+	        ));
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body(Map.of("error", "서버 에러: " + e.getMessage()));
+	    }
+	}
 
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
