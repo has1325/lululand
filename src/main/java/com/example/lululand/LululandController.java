@@ -146,6 +146,7 @@ public class LululandController {
 	
 	@PostMapping("/api/consult")
 	@ResponseBody
+	@CrossOrigin(origins = "*") // 프론트엔드(네트리파이)에서 호출 허용
 	public ResponseEntity<?> submitConsult(@RequestBody Map<String, String> formData) {
 	    try {
 	        Consult consult = new Consult();
@@ -155,7 +156,7 @@ public class LululandController {
 	        consult.setInterest(formData.get("interest"));
 	        consult.setMessage(formData.get("message"));
 
-	        consultRepository.save(consult); // ✅ MySQL DB 저장
+	        consultRepository.save(consult); // ✅ MySQL DB에 저장
 
 	        return ResponseEntity.ok(Map.of(
 	            "success", true,
