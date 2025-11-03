@@ -11,6 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     registry.addMapping("/api/**")
       .allowedOrigins("https://lululand.co.kr") // 프론트 도메인으로 변경
       .allowedMethods("GET","POST","PUT","DELETE","OPTIONS")
+      .allowedHeaders("*")
       .allowCredentials(true);
   }
 }
