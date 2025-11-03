@@ -30,6 +30,7 @@ public class LululandController {
 
 	private final LululandService lululandService;
 	private final PasswordEncoder passwordEncoder;
+	private final ConsultRepository consultRepository;
 	private final JwtUtil jwtUtil;
 
 	// === API 엔드포인트 ===
@@ -139,6 +140,30 @@ public class LululandController {
 	    } catch (Exception e) {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                .body(Map.of("error", "서버 에러: " + e.getMessage()));
+	    }
+	}
+	
+	@PostMapping("/api/consult")
+	@ResponseBody
+	@CrossOrigin(origins = "*") // 프론트엔드(네트리파이)에서 호출 허용
+	public ResponseEntity<?> submitConsult(@RequestBody Map<String, String> formData) {
+	    try {
+	        Consult consult = new Consult();
+	        consult.setName(formData.get("name"));
+	        consult.setEmail(formData.get("email"));
+	        consult.setPhone(formData.get("phone"));
+	        consult.setInterest(formData.get("interest"));
+	        consult.setMessage(formData.get("message"));
+
+	        consultRepository.save(consult); // ✅ MySQL DB에 저장
+
+	        return ResponseEntity.ok(Map.of(
+	            "success", true,
+	            "message", "상담 신청이 성공적으로 접수되었습니다!"
+	        ));
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body(Map.of("success", false, "error", "서버 에러: " + e.getMessage()));
 	    }
 	}
 
