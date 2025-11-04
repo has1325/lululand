@@ -146,26 +146,50 @@ public class LululandController {
 	
 	@PostMapping("/api/consult")
 	@ResponseBody
-	public ResponseEntity<?> submitConsult(@RequestBody Map<String, String> formData) {
-	    try {
-	        Consult consult = new Consult();
-	        consult.setName(formData.get("name"));
-	        consult.setEmail(formData.get("email"));
-	        consult.setPhone(formData.get("phone"));
-	        consult.setInterest(formData.get("interest"));
-	        consult.setMessage(formData.get("message"));
+	public ResponseEntity<?> submitConsult(@RequestBody Map<String, Object> formData) {
+        try {
+            if (formData == null || formData.isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of(
+                        "success", false,
+                        "error", "요청 데이터가 비어 있습니다. (JSON 형식으로 전송해야 합니다)"
+                ));
+            }
 
-	        consultRepository.save(consult); // ✅ MySQL DB 저장
+            String name = (String) formData.get("name");
+            String email = (String) formData.get("email");
+            String phone = (String) formData.get("phone");
+            String interest = (String) formData.get("interest");
+            String message = (String) formData.get("message");
 
-	        return ResponseEntity.ok(Map.of(
-	            "success", true,
-	            "message", "상담 신청이 성공적으로 접수되었습니다!"
-	        ));
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                .body(Map.of("success", false, "error", "서버 에러: " + e.getMessage()));
-	    }
-	}
+            if (name == null || name.trim().isEmpty() ||
+                email == null || email.trim().isEmpty() ||
+                phone == null || phone.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of(
+                        "success", false,
+                        "error", "이름, 이메일, 전화번호는 필수 입력 항목입니다."
+                ));
+            }
+
+            Consult consult = new Consult();
+            consult.setName(name.trim());
+            consult.setEmail(email.trim());
+            consult.setPhone(phone.trim());
+            consult.setInterest(interest != null ? interest.trim() : "");
+            consult.setMessage(message != null ? message.trim() : "");
+
+            consultRepository.save(consult);
+
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "상담신청이 완료되었습니다."
+            ));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("success", false, "error", e.getMessage()));
+        }
+    }
 
 	@GetMapping("/api/me")
 	@ResponseBody
