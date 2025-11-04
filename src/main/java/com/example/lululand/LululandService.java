@@ -57,13 +57,14 @@ public class LululandService {
     }
 	
 	public void saveConsult(String name, String email, String color, String message) {
-	    Consult consult = new Consult();
-	    consult.setName(name);
-	    consult.setEmail(email);
-	    consult.setColor(color);
-	    consult.setMessage(message);
-	    consultRepository.save(consult);
-	}
+        Consult consult = new Consult();
+        consult.setName(name);
+        consult.setEmail(email);
+        consult.setColor(color);
+        consult.setMessage(message);
+
+        consultRepository.save(consult); // DB에 저장
+    }
 
 	
 }
