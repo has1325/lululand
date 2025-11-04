@@ -141,6 +141,29 @@ public class LululandController {
 	                .body(Map.of("error", "서버 에러: " + e.getMessage()));
 	    }
 	}
+	
+	@PostMapping("/api/consult")
+	@ResponseBody
+	public ResponseEntity<?> submitConsult(@RequestBody Map<String, String> consultData) {
+	    try {
+	        String name = consultData.get("name");
+	        String email = consultData.get("email");
+	        String color = consultData.get("color");
+	        String message = consultData.get("message");
+
+	        if (name == null || email == null || message == null || name.isBlank() || email.isBlank() || message.isBlank()) {
+	            return ResponseEntity.badRequest().body(Map.of("error", "필수 항목을 모두 입력해주세요."));
+	        }
+
+	        // DB 저장
+	        lululandService.saveConsult(name, email, color, message);
+
+	        return ResponseEntity.ok(Map.of("message", "상담 신청이 성공적으로 접수되었습니다."));
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body(Map.of("error", "서버 오류: " + e.getMessage()));
+	    }
+	}
 
 	@GetMapping("/api/me")
 	@ResponseBody
