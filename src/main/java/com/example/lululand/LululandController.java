@@ -146,14 +146,39 @@ public class LululandController {
 	
 	@PostMapping("/api/consult")
 	@ResponseBody
-	public ResponseEntity<?> submitConsult(@RequestBody Map<String, String> formData) {
+	@CrossOrigin(origins = "*") // ✅ Netlify 프론트엔드에서 호출 허용
+	public ResponseEntity<?> submitConsult(@RequestBody(required = false) Map<String, Object> formData) {
 	    try {
+	        if (formData == null || formData.isEmpty()) {
+	            return ResponseEntity.badRequest().body(Map.of(
+	                "success", false,
+	                "error", "요청 데이터가 비어 있습니다. (JSON 형식으로 전송해야 합니다)"
+	            ));
+	        }
+
+	        String name = (String) formData.get("name");
+	        String email = (String) formData.get("email");
+	        String phone = (String) formData.get("phone");
+	        String interest = (String) formData.get("interest");
+	        String message = (String) formData.get("message");
+
+	        // ✅ 필수 필드 검증
+	        if (name == null || name.trim().isEmpty() ||
+	            email == null || email.trim().isEmpty() ||
+	            phone == null || phone.trim().isEmpty()) {
+	            return ResponseEntity.badRequest().body(Map.of(
+	                "success", false,
+	                "error", "이름, 이메일, 전화번호는 필수 입력 항목입니다."
+	            ));
+	        }
+
+	        // ✅ Consult 객체 생성 및 저장
 	        Consult consult = new Consult();
-	        consult.setName(formData.get("name"));
-	        consult.setEmail(formData.get("email"));
-	        consult.setPhone(formData.get("phone"));
-	        consult.setInterest(formData.get("interest"));
-	        consult.setMessage(formData.get("message"));
+	        consult.setName(name.trim());
+	        consult.setEmail(email.trim());
+	        consult.setPhone(phone.trim());
+	        consult.setInterest(interest != null ? interest.trim() : "");
+	        consult.setMessage(message != null ? message.trim() : "");
 
 	        consultRepository.save(consult); // ✅ MySQL DB 저장
 
@@ -161,9 +186,12 @@ public class LululandController {
 	            "success", true,
 	            "message", "상담 신청이 성공적으로 접수되었습니다!"
 	        ));
+
 	    } catch (Exception e) {
+	        // ✅ Render 로그에서 확인 가능하도록 출력
+	        e.printStackTrace();
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                .body(Map.of("success", false, "error", "서버 에러: " + e.getMessage()));
+	            .body(Map.of("success", false, "error", "서버 에러: " + e.getMessage()));
 	    }
 	}
 
