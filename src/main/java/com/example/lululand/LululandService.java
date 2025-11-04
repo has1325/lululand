@@ -55,4 +55,14 @@ public class LululandService {
             .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
     }
 	
+	public void saveConsult(String name, String email, String color, String message) {
+	    Consult consult = new Consult();
+	    consult.setName(name);
+	    consult.setEmail(email);
+	    consult.setColor(color);
+	    consult.setMessage(message);
+	    consultRepository.save(consult);
+	}
+
+	
 }
