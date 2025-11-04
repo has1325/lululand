@@ -15,6 +15,7 @@ public class LululandService {
 	
 	private final LululandRepository lululandRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final ConsultRepository consultRepository;
 	
 	public Lululand create(String userid, String email, String password, String username, String phone) {
 		Lululand lululand = new Lululand();
