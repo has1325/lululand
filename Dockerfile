@@ -1,5 +1,5 @@
 # 1. Java 17 JDK 이미지 사용
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk
 
 # 2. 빌드 단계: Gradle로 jar 만들기
 WORKDIR /app
