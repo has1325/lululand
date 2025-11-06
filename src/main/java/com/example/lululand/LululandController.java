@@ -142,7 +142,7 @@ public class LululandController {
 	    }
 	}
 	
-	@CrossOrigin(origins = "https://your-netlify-domain.netlify.")
+	@CrossOrigin(origins = "https://lululand.co.kr/")
 	@PostMapping("/api/consult")
 	@ResponseBody
 	public ResponseEntity<?> submitConsult(@RequestBody Map<String, String> consultData) {
