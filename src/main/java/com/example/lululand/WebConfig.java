@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/api/**")
-      .allowedOrigins("https://lululand.co.kr") // 프론트 도메인으로 변경
+      .allowedOrigins("https://lululand.co.kr", "https://gem-color-counseling-yuhaseong1300.replit.app/api/consult") // 프론트 도메인으로 변경
       .allowedMethods("GET","POST","PUT","DELETE","OPTIONS")
       .allowedHeaders("*")
       .allowCredentials(true);
