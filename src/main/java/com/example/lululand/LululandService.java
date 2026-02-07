@@ -56,6 +56,10 @@ public class LululandService {
 	    return lululandOptional.orElse(null);
 	}
 	
+	public boolean existsByEmail(String email) {
+	    return lululandRepository.existsByEmail(email);
+	}
+	
 	public Lululand getMyInfo(String userId) {
         return lululandRepository.findByUserid(userId)
             .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));

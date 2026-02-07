@@ -194,6 +194,35 @@ public class LululandController {
 	        ));
 	    }
 	}
+	
+	@PostMapping("/api/find-password")
+	@ResponseBody
+	public ResponseEntity<?> findPassword(@RequestBody Map<String, String> data) {
+
+	    String email = data.get("email");
+
+	    if (email == null || email.isBlank()) {
+	        return ResponseEntity.badRequest().body(Map.of(
+	            "success", false,
+	            "error", "이메일을 입력해주세요."
+	        ));
+	    }
+
+	    Lululand user = lululandService.findByEmail(email);
+
+	    if (user == null) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+	            "success", false,
+	            "error", "해당 이메일의 사용자를 찾을 수 없습니다."
+	        ));
+	    }
+
+	    // 👉 실제 이메일 발송 로직은 나중에 추가
+	    return ResponseEntity.ok(Map.of(
+	        "success", true,
+	        "message", "비밀번호 재설정 이메일을 발송했습니다."
+	    ));
+	}
 
 	@GetMapping("/api/me")
 	@ResponseBody
