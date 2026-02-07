@@ -13,6 +13,7 @@ public interface LululandRepository extends JpaRepository<Lululand, Long> {
     Optional<Lululand> findByUseridAndUsernameAndEmail(String userid, String username, String email);
     Optional<Lululand> findByEmail(String email);
     Optional<Lululand> findByUserid(String userid);
+    Optional<Lululand> findByUsernameAndPhone(String username, String phone);
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
     
