@@ -165,6 +165,35 @@ public class LululandController {
 	                .body(Map.of("error", "서버 오류: " + e.getMessage()));
 	    }
 	}
+	
+	@PostMapping("/api/find-id")
+	@ResponseBody
+	public ResponseEntity<?> findId(@RequestBody Map<String, String> data) {
+
+	    String name = data.get("name");
+	    String phone = data.get("phone");
+
+	    if (name == null || phone == null || name.isBlank() || phone.isBlank()) {
+	        return ResponseEntity.badRequest().body(Map.of(
+	            "success", false,
+	            "error", "이름과 휴대폰 번호를 입력해주세요."
+	        ));
+	    }
+
+	    String userid = lululandService.findUserIdByNameAndPhone(name, phone);
+
+	    if (userid != null) {
+	        return ResponseEntity.ok(Map.of(
+	            "success", true,
+	            "userid", userid
+	        ));
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+	            "success", false,
+	            "error", "일치하는 사용자를 찾을 수 없습니다."
+	        ));
+	    }
+	}
 
 	@GetMapping("/api/me")
 	@ResponseBody

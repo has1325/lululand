@@ -36,6 +36,11 @@ public class LululandService {
 		Optional<Lululand> lululandOptional = lululandRepository.findByUsernameAndEmail(username, email);
 	    return lululandOptional.isPresent() ? lululandOptional.get().getUserid() : null;
     }
+	
+	public String findUserIdByNameAndPhone(String username, String phone) {
+	    Optional<Lululand> user = lululandRepository.findByUsernameAndPhone(username, phone);
+	    return user.map(Lululand::getUserid).orElse(null);
+	}
 
 	public Lululand getMetaloverByUseridAndUsernameAndEmail(String userid, String username, String email) {
 		Optional<Lululand> lululand = this.lululandRepository.findByUseridAndUsernameAndEmail(userid, username, email);
