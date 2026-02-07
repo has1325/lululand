@@ -166,6 +166,7 @@ public class LululandController {
 	    }
 	}
 	
+	@CrossOrigin(origins = "*")
 	@PostMapping("/api/find-id")
 	@ResponseBody
 	public ResponseEntity<?> findId(@RequestBody Map<String, String> data) {
