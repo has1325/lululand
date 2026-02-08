@@ -181,7 +181,11 @@ public class LululandController {
 	        ));
 	    }
 
-	    String userid = lululandService.findUserIdByNameAndPhone(name, phone);
+	    // ✅ 하이픈 제거
+	    String normalizedPhone = phone.replaceAll("-", "");
+
+	    String userid =
+	        lululandService.findUserIdByNameAndPhone(name, normalizedPhone);
 
 	    if (userid != null) {
 	        return ResponseEntity.ok(Map.of(
