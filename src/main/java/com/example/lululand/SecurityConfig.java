@@ -1,6 +1,5 @@
 package com.example.lululand;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -16,9 +15,6 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    @Value("${FRONTEND_ORIGIN:https://lululand.co.kr}")
-    private String frontendOrigin;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -29,11 +25,12 @@ public class SecurityConfig {
         http
             .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
+
             .authorizeHttpRequests(auth -> auth
-                // 🔥 Preflight 요청 허용 (중요!)
+                // 🔥 Preflight 전부 허용
                 .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
 
-                // 🔥 로그인 없이 사용 API
+                // 🔥 로그인 없이 접근 허용 API
                 .requestMatchers(
                     "/api/signup",
                     "/api/login",
@@ -44,6 +41,7 @@ public class SecurityConfig {
 
                 .anyRequest().authenticated()
             )
+
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .httpBasic(b -> b.disable());
 
@@ -54,11 +52,10 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // 🔥 여러 origin 허용
+        // 🔥 모든 HTTPS 도메인 허용 (배포 환경 안정화)
         config.setAllowedOriginPatterns(List.of(
             "https://lululand.co.kr",
             "https://www.lululand.co.kr",
-            "http://localhost:*",
             "https://*.onrender.com"
         ));
 
@@ -68,6 +65,7 @@ public class SecurityConfig {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
+
         return source;
     }
 }
