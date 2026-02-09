@@ -50,20 +50,24 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration config = new CorsConfiguration();
 
-        // 🔥 모든 HTTPS 도메인 허용 (배포 환경 안정화)
         config.setAllowedOriginPatterns(List.of(
             "https://lululand.co.kr",
-            "https://www.lululand.co.kr",
-            "https://*.onrender.com"
+            "https://www.lululand.co.kr"
         ));
 
-        config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+        config.setAllowedMethods(List.of(
+            "GET","POST","PUT","DELETE","OPTIONS"
+        ));
+
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(false);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source =
+            new UrlBasedCorsConfigurationSource();
+
         source.registerCorsConfiguration("/**", config);
 
         return source;
