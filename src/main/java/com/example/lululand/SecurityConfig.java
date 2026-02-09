@@ -30,7 +30,18 @@ public class SecurityConfig {
             .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/signup", "/api/login", "/api/hello", "/api/find-id", "/api/find-password").permitAll()
+                // 🔥 Preflight 요청 허용 (중요!)
+                .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+
+                // 🔥 로그인 없이 사용 API
+                .requestMatchers(
+                    "/api/signup",
+                    "/api/login",
+                    "/api/hello",
+                    "/api/find-id",
+                    "/api/find-password"
+                ).permitAll()
+
                 .anyRequest().authenticated()
             )
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -42,10 +53,19 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(frontendOrigin));
+
+        // 🔥 여러 origin 허용
+        config.setAllowedOriginPatterns(List.of(
+            "https://lululand.co.kr",
+            "https://www.lululand.co.kr",
+            "http://localhost:*",
+            "https://*.onrender.com"
+        ));
+
         config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(false); // 현재 fetch에서는 쿠키 사용 안 하므로 false. 쿠키 사용 시 true로 변경하고 프론트에서 credentials:'include' 설정
+        config.setAllowCredentials(false);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
