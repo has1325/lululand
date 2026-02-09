@@ -232,7 +232,7 @@ public class LululandController {
 
 	        // ✅ 비밀번호 변경 후 저장
 	        user.setPassword(passwordEncoder.encode(tempPassword));
-	        lululandService.save(user); // ← 이걸로 변경
+	        lululandService.updateUser(user);
 
 	        // ✅ 이메일 발송
 	        SimpleMailMessage message = new SimpleMailMessage();
