@@ -253,11 +253,11 @@ public class LululandController {
 	        ));
 
 	    } catch (Exception e) {
-	        e.printStackTrace(); // 로그 확인용
+	        e.printStackTrace(); // 🔥 핵심
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	            .body(Map.of(
 	                "success", false,
-	                "error", "이메일 발송 실패"
+	                "error", e.toString()
 	            ));
 	    }
 	}
