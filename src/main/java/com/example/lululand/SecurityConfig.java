@@ -27,20 +27,25 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
 
             .authorizeHttpRequests(auth -> auth
-                // 🔥 Preflight 전부 허용
-                .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+            	    .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
 
-                // 🔥 로그인 없이 접근 허용 API
-                .requestMatchers(
-                    "/api/signup",
-                    "/api/login",
-                    "/api/hello",
-                    "/api/find-id",
-                    "/api/find-password"
-                ).permitAll()
+            	    .requestMatchers(
+            	        "/",
+            	        "/index",
+            	        "/login",
+            	        "/signup",
+            	        "/api/signup",
+            	        "/api/login",
+            	        "/api/hello",
+            	        "/api/find-id",
+            	        "/api/find-password",
+            	        "/css/**",
+            	        "/js/**",
+            	        "/images/**"
+            	    ).permitAll()
 
-                .anyRequest().authenticated()
-            )
+            	    .anyRequest().authenticated()
+            	)
 
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .httpBasic(b -> b.disable());
