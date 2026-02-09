@@ -225,16 +225,16 @@ public class LululandController {
 	    }
 
 	    try {
-	        // ✅ 1. 임시 비밀번호 생성
+	        // ✅ 임시 비밀번호 생성
 	        String tempPassword = java.util.UUID.randomUUID()
 	                .toString()
 	                .substring(0, 8);
 
-	        // ✅ 2. 암호화 후 DB 저장
+	        // ✅ 비밀번호 변경 후 저장
 	        user.setPassword(passwordEncoder.encode(tempPassword));
-	        lululandService.updateUser(user); // 아래 설명 참고
+	        lululandService.save(user); // ← 이걸로 변경
 
-	        // ✅ 3. 이메일 발송
+	        // ✅ 이메일 발송
 	        SimpleMailMessage message = new SimpleMailMessage();
 	        message.setTo(email);
 	        message.setSubject("[루루랜드] 임시 비밀번호 안내");
@@ -242,8 +242,7 @@ public class LululandController {
 	            "안녕하세요 " + user.getUsername() + "님.\n\n" +
 	            "임시 비밀번호는 아래와 같습니다.\n\n" +
 	            "👉 " + tempPassword + "\n\n" +
-	            "로그인 후 반드시 비밀번호를 변경해주세요.\n\n" +
-	            "감사합니다.\n루루랜드 드림"
+	            "로그인 후 반드시 비밀번호를 변경해주세요."
 	        );
 
 	        mailSender.send(message);
@@ -254,6 +253,7 @@ public class LululandController {
 	        ));
 
 	    } catch (Exception e) {
+	        e.printStackTrace(); // 로그 확인용
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	            .body(Map.of(
 	                "success", false,
