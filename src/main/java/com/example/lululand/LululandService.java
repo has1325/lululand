@@ -18,14 +18,18 @@ public class LululandService {
 	private final ConsultRepository consultRepository;
 	
 	public Lululand create(String userid, String email, String password, String username, String phone) {
-		Lululand lululand = new Lululand();
-		lululand.setUserid(userid);
-		lululand.setEmail(email);
-		lululand.setPassword(passwordEncoder.encode(password));
-		lululand.setUsername(username);
-		lululand.setPhone(phone);
-		this.lululandRepository.save(lululand);
-		return lululand;
+	    Lululand lululand = new Lululand();
+	    lululand.setUserid(userid);
+	    lululand.setEmail(email);
+	    lululand.setPassword(passwordEncoder.encode(password));
+	    lululand.setUsername(username);
+
+	    // ✅ 전화번호 하이픈 제거 + 공백 제거
+	    String normalizedPhone = phone.replaceAll("-", "").trim();
+	    lululand.setPhone(normalizedPhone);
+
+	    this.lululandRepository.save(lululand);
+	    return lululand;
 	}
 	
 	public List<Lululand> getAllMetalover() {
@@ -38,7 +42,17 @@ public class LululandService {
     }
 	
 	public String findUserIdByNameAndPhone(String username, String phone) {
-	    Optional<Lululand> user = lululandRepository.findByUsernameAndPhone(username, phone);
+
+	    // ✅ 조회 시도 동일하게 정규화
+	    String normalizedPhone = phone.replaceAll("-", "").trim();
+	    String normalizedName = username.trim();
+
+	    Optional<Lululand> user =
+	        lululandRepository.findByUsernameAndPhone(
+	            normalizedName,
+	            normalizedPhone
+	        );
+
 	    return user.map(Lululand::getUserid).orElse(null);
 	}
 
