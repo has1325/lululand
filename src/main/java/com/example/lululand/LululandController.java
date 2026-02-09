@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,8 @@ public class LululandController {
 	private final LululandService lululandService;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtUtil jwtUtil;
+	
+	private final JavaMailSender mailSender;
 
 	// === API 엔드포인트 ===
 	@GetMapping("/api/hello")
@@ -220,11 +223,32 @@ public class LululandController {
 	        ));
 	    }
 
-	    // 👉 실제 이메일 발송 로직은 나중에 추가
-	    return ResponseEntity.ok(Map.of(
-	        "success", true,
-	        "message", "비밀번호 재설정 이메일을 발송했습니다."
-	    ));
+	    // ✅ 실제 이메일 발송
+	    try {
+	        SimpleMailMessage message = new SimpleMailMessage();
+	        message.setTo(email);
+	        message.setSubject("[루루랜드] 비밀번호 재설정 안내");
+	        message.setText(
+	            "안녕하세요 " + user.getUsername() + "님.\n\n" +
+	            "비밀번호 재설정을 요청하셨습니다.\n" +
+	            "로그인 페이지에서 새 비밀번호를 설정해주세요.\n\n" +
+	            "감사합니다.\n루루랜드 드림"
+	        );
+
+	        mailSender.send(message);
+
+	        return ResponseEntity.ok(Map.of(
+	            "success", true,
+	            "message", "비밀번호 재설정 이메일을 발송했습니다."
+	        ));
+
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	            .body(Map.of(
+	                "success", false,
+	                "error", "이메일 발송 실패"
+	            ));
+	    }
 	}
 
 	@GetMapping("/api/me")
