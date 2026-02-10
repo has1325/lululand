@@ -58,7 +58,8 @@ public class SecurityConfig {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOriginPatterns(List.of(
+        // ✅ 정확한 Origin 지정
+        config.setAllowedOrigins(List.of(
             "https://lululand.co.kr",
             "https://www.lululand.co.kr"
         ));
@@ -68,7 +69,9 @@ public class SecurityConfig {
         ));
 
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(false);
+
+        // ✅ 이거 꼭 true
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
             new UrlBasedCorsConfigurationSource();

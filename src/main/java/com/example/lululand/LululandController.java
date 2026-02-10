@@ -215,6 +215,9 @@ public class LululandController {
 	        ));
 	    }
 
+	    // ✅ 추가 (핵심)
+	    email = email.trim().toLowerCase();
+
 	    Lululand user = lululandService.findByEmail(email);
 
 	    if (user == null) {
@@ -225,16 +228,13 @@ public class LululandController {
 	    }
 
 	    try {
-	        // ✅ 임시 비밀번호 생성
 	        String tempPassword = java.util.UUID.randomUUID()
 	                .toString()
 	                .substring(0, 8);
 
-	        // ✅ 비밀번호 변경 후 저장
 	        user.setPassword(passwordEncoder.encode(tempPassword));
 	        lululandService.updateUser(user);
 
-	        // ✅ 이메일 발송
 	        SimpleMailMessage message = new SimpleMailMessage();
 	        message.setTo(email);
 	        message.setSubject("[루루랜드] 임시 비밀번호 안내");
@@ -253,7 +253,7 @@ public class LululandController {
 	        ));
 
 	    } catch (Exception e) {
-	        e.printStackTrace(); // 🔥 핵심
+	        e.printStackTrace();
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	            .body(Map.of(
 	                "success", false,
