@@ -236,6 +236,8 @@ public class LululandController {
 	        lululandService.updateUser(user);
 
 	        SimpleMailMessage message = new SimpleMailMessage();
+	        
+	        message.setFrom("no-reply@lululand.co.kr");
 	        message.setTo(email);
 	        message.setSubject("[루루랜드] 임시 비밀번호 안내");
 	        message.setText(
