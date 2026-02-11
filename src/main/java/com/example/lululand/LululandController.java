@@ -245,8 +245,6 @@ public class LululandController {
 	            "로그인 후 반드시 비밀번호를 변경해주세요."
 	        );
 
-	        mailSender.send(message);
-
 	        return ResponseEntity.ok(Map.of(
 	            "success", true,
 	            "message", "임시 비밀번호를 이메일로 발송했습니다."
