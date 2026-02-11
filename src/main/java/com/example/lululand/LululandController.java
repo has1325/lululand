@@ -33,6 +33,7 @@ public class LululandController {
 	private final LululandService lululandService;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtUtil jwtUtil;
+	private final EmailService emailService;
 
 	// === API 엔드포인트 ===
 	@GetMapping("/api/hello")
@@ -201,64 +202,52 @@ public class LululandController {
 	}
 	
 	@PostMapping("/api/find-password")
-	@ResponseBody
-	public ResponseEntity<?> findPassword(@RequestBody Map<String, String> data) {
+    public ResponseEntity<?> findPassword(@RequestBody Map<String, String> data) {
 
-	    String email = data.get("email");
+        String email = data.get("email");
 
-	    if (email == null || email.isBlank()) {
-	        return ResponseEntity.badRequest().body(Map.of(
-	            "success", false,
-	            "error", "이메일을 입력해주세요."
-	        ));
-	    }
+        if (email == null || email.isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "이메일 입력 필요"));
+        }
 
-	    // ✅ 추가 (핵심)
-	    email = email.trim().toLowerCase();
+        email = email.trim().toLowerCase();
 
-	    Lululand user = lululandService.findByEmail(email);
+        Lululand user = lululandService.findByEmail(email);
 
-	    if (user == null) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-	            "success", false,
-	            "error", "해당 이메일의 사용자를 찾을 수 없습니다."
-	        ));
-	    }
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "사용자 없음"));
+        }
 
-	    try {
-	        String tempPassword = java.util.UUID.randomUUID()
-	                .toString()
-	                .substring(0, 8);
+        try {
+            // 1️⃣ 임시 비밀번호 생성
+            String tempPassword = java.util.UUID.randomUUID()
+                    .toString()
+                    .substring(0, 8);
 
-	        user.setPassword(passwordEncoder.encode(tempPassword));
-	        lululandService.updateUser(user);
+            // 2️⃣ DB 업데이트
+            user.setPassword(passwordEncoder.encode(tempPassword));
+            lululandService.updateUser(user);
 
-	        SimpleMailMessage message = new SimpleMailMessage();
-	        
-	        message.setFrom("no-reply@lululand.co.kr");
-	        message.setTo(email);
-	        message.setSubject("[루루랜드] 임시 비밀번호 안내");
-	        message.setText(
-	            "안녕하세요 " + user.getUsername() + "님.\n\n" +
-	            "임시 비밀번호는 아래와 같습니다.\n\n" +
-	            "👉 " + tempPassword + "\n\n" +
-	            "로그인 후 반드시 비밀번호를 변경해주세요."
-	        );
+            // 3️⃣ 이메일 발송 (⭐ 핵심)
+            emailService.sendTempPasswordEmail(
+                    email,
+                    user.getUsername(),
+                    tempPassword
+            );
 
-	        return ResponseEntity.ok(Map.of(
-	            "success", true,
-	            "message", "임시 비밀번호를 이메일로 발송했습니다."
-	        ));
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "임시 비밀번호 이메일 발송 완료"
+            ));
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	            .body(Map.of(
-	                "success", false,
-	                "error", e.toString()
-	            ));
-	    }
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", e.getMessage()));
+        }
+    }
 
 	@GetMapping("/api/me")
 	@ResponseBody
