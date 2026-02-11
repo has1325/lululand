@@ -33,8 +33,6 @@ public class LululandController {
 	private final LululandService lululandService;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtUtil jwtUtil;
-	
-	private final JavaMailSender mailSender;
 
 	// === API 엔드포인트 ===
 	@GetMapping("/api/hello")
