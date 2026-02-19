@@ -4,15 +4,20 @@ import com.sendgrid.*;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.*;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 
 @Service
 public class EmailService {
 
-    public void sendTempPasswordEmail(String toEmail, String username, String tempPassword) throws IOException {
+    @Value("${SENDGRID_API_KEY}")
+    private String sendGridApiKey;
 
-        Email from = new Email("no-reply@lululand.co.kr"); // 반드시 SendGrid 인증된 이메일
+    public void sendTempPasswordEmail(String toEmail, String username, String tempPassword) {
+
+        Email from = new Email("no-reply@lululand.co.kr");
         Email to = new Email(toEmail);
 
         String subject = "[루루랜드] 임시 비밀번호 안내";
@@ -20,23 +25,52 @@ public class EmailService {
         String contentText =
                 "안녕하세요 " + username + "님.\n\n" +
                 "임시 비밀번호는 아래와 같습니다.\n\n" +
-                "👉 " + tempPassword + "\n\n" +
+                tempPassword + "\n\n" +
                 "로그인 후 반드시 비밀번호를 변경해주세요.";
 
-        Content content = new Content("text/plain", contentText);
+        String contentHtml =
+                "<div style='font-family:Arial;'>"
+                + "<h2>임시 비밀번호 안내</h2>"
+                + "<p>안녕하세요 <b>" + username + "</b>님.</p>"
+                + "<p>임시 비밀번호는 아래와 같습니다.</p>"
+                + "<h3 style='color:#ff4d6d;'>" + tempPassword + "</h3>"
+                + "<p>로그인 후 반드시 비밀번호를 변경해주세요.</p>"
+                + "</div>";
 
-        Mail mail = new Mail(from, subject, to, content);
+        Content textContent = new Content("text/plain", contentText);
+        Content htmlContent = new Content("text/html", contentHtml);
 
-        SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
+        Mail mail = new Mail();
+        mail.setFrom(from);
+        mail.setSubject(subject);
+
+        Personalization personalization = new Personalization();
+        personalization.addTo(to);
+        mail.addPersonalization(personalization);
+
+        mail.addContent(textContent);
+        mail.addContent(htmlContent);
+
+        SendGrid sg = new SendGrid(sendGridApiKey);
 
         Request request = new Request();
-        request.setMethod(Method.POST);
-        request.setEndpoint("mail/send");
-        request.setBody(mail.build());
 
-        Response response = sg.api(request);
+        try {
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
 
-        System.out.println("메일 상태코드: " + response.getStatusCode());
-        System.out.println("메일 응답: " + response.getBody());
+            Response response = sg.api(request);
+
+            System.out.println("메일 상태코드: " + response.getStatusCode());
+            System.out.println("메일 응답: " + response.getBody());
+
+            if (response.getStatusCode() != 202) {
+                throw new RuntimeException("메일 발송 실패");
+            }
+
+        } catch (IOException ex) {
+            throw new RuntimeException("SendGrid 오류 발생", ex);
+        }
     }
 }
