@@ -54,17 +54,15 @@ public class LululandService {
 
         return user.map(Lululand::getUserid).orElse(null);
     }
-
-    /* ✅ 새로 추가된 메서드 */
-    public String findEmailByNameAndPhone(String username, String phone) {
+    
+    public Lululand findByNameAndPhone(String username, String phone) {
 
         String normalizedPhone = phone.replaceAll("-", "").trim();
         String normalizedName = username.trim();
 
-        Optional<Lululand> user =
-            lululandRepository.findByUsernameAndPhone(normalizedName, normalizedPhone);
-
-        return user.map(Lululand::getEmail).orElse(null);
+        return lululandRepository
+            .findByUsernameAndPhone(normalizedName, normalizedPhone)
+            .orElse(null);
     }
 
     public Lululand getMetaloverByUseridAndUsernameAndEmail(String userid, String username, String email) {
