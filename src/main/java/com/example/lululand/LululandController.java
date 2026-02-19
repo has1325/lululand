@@ -182,16 +182,17 @@ public class LululandController {
 	        ));
 	    }
 
-	    // ✅ 하이픈 제거
+	    // 하이픈 제거
 	    String normalizedPhone = phone.replaceAll("-", "");
 
-	    String userid =
-	        lululandService.findUserIdByNameAndPhone(name, normalizedPhone);
+	    // 🔥 사용자 조회
+	    Lululand user =
+	        lululandService.findByNameAndPhone(name, normalizedPhone);
 
-	    if (userid != null) {
+	    if (user != null) {
 	        return ResponseEntity.ok(Map.of(
 	            "success", true,
-	            "userid", userid
+	            "email", user.getEmail()   // ✅ 이메일 반환
 	        ));
 	    } else {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
