@@ -97,10 +97,7 @@ public class LululandController {
 		String password = loginData.get("password");
 
 		if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-			return ResponseEntity.badRequest().body(Map.of(
-				"success", false,
-				"error", "이메일과 비밀번호를 모두 입력해 주세요."
-			));
+			return ResponseEntity.badRequest().body(Map.of("success", false, "error", "이메일과 비밀번호를 모두 입력해 주세요."));
 		}
 
 		Lululand metalover = lululandService.findByEmail(email);
@@ -109,17 +106,11 @@ public class LululandController {
 			// ✅ JWT 토큰 생성
 			String token = jwtUtil.generateToken(email);
 
-			return ResponseEntity.ok(Map.of(
-				"success", true,
-				"token", token,
-				"message", "로그인 성공",
-				"user", metalover.getUsername()
-			));
+			return ResponseEntity
+					.ok(Map.of("success", true, "token", token, "message", "로그인 성공", "user", metalover.getUsername()));
 		} else {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-				"success", false,
-				"error", "아이디 또는 비밀번호가 올바르지 않습니다."
-			));
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+					.body(Map.of("success", false, "error", "아이디 또는 비밀번호가 올바르지 않습니다."));
 		}
 	}
 
@@ -127,128 +118,160 @@ public class LululandController {
 	@ResponseBody
 	public ResponseEntity<Map<String, String>> apiSignup(@Valid @RequestBody UserCreateForm form) {
 
-	    // 1) 비밀번호 일치 여부 검사 (DTO 유효성은 @Valid로 처리)
-	    if (!form.getPassword1().equals(form.getPassword2())) {
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "비밀번호가 일치하지 않습니다."));
-	    }
+		// 1) 비밀번호 일치 여부 검사 (DTO 유효성은 @Valid로 처리)
+		if (!form.getPassword1().equals(form.getPassword2())) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "비밀번호가 일치하지 않습니다."));
+		}
 
-	    try {
-	        // 2) 서비스에게 생성 호출 (서비스 안에서 passwordEncoder.encode(...) 처리)
-	        lululandService.create(form.getUserid(), form.getEmail(), form.getPassword1(), form.getUsername(), form.getPhone());
+		try {
+			// 2) 서비스에게 생성 호출 (서비스 안에서 passwordEncoder.encode(...) 처리)
+			lululandService.create(form.getUserid(), form.getEmail(), form.getPassword1(), form.getUsername(),
+					form.getPhone());
 
-	        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "회원가입 성공"));
-	    } catch (DataIntegrityViolationException e) {
-	        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", "이미 등록된 사용자입니다."));
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                .body(Map.of("error", "서버 에러: " + e.getMessage()));
-	    }
+			return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "회원가입 성공"));
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", "이미 등록된 사용자입니다."));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Map.of("error", "서버 에러: " + e.getMessage()));
+		}
 	}
-	
+
 	@PostMapping("/api/consult")
 	@ResponseBody
-	public ResponseEntity<?> submitConsult(@RequestBody Map<String, String> consultData) {
-	    try {
-	        String name = consultData.get("name");
-	        String email = consultData.get("email");
-	        String color = consultData.get("color");
-	        String message = consultData.get("message");
+	public ResponseEntity<?> submitConsult(@RequestBody Map<String, String> consultData,
+			@RequestHeader(value = "Authorization", required = false) String authHeader) {
 
-	        if (name == null || email == null || message == null || name.isBlank() || email.isBlank() || message.isBlank()) {
-	            return ResponseEntity.badRequest().body(Map.of("error", "필수 항목을 모두 입력해주세요."));
-	        }
+		try {
+			String name = consultData.get("name");
+			String email = consultData.get("email");
+			String color = consultData.get("color");
+			String message = consultData.get("message");
 
-	        // DB 저장
-	        lululandService.saveConsult(name, email, color, message);
+			// ✅ AI 상담 데이터 수신
+			String gem = consultData.get("gem");
+			String reform = consultData.get("reform");
+			String condition = consultData.get("condition");
+			String budget = consultData.get("budget");
+			String style = consultData.get("style");
 
-	        return ResponseEntity.ok(Map.of("message", "상담 신청이 성공적으로 접수되었습니다."));
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                .body(Map.of("error", "서버 오류: " + e.getMessage()));
-	    }
+			// =========================
+			// 1️⃣ JWT 사용자 자동 인식
+			// =========================
+			if ((email == null || email.isBlank()) && authHeader != null && authHeader.startsWith("Bearer ")) {
+				String token = authHeader.substring(7);
+				if (jwtUtil.validateToken(token)) {
+					String userEmail = jwtUtil.extractUsername(token);
+					Lululand user = lululandService.findByEmail(userEmail);
+					if (user != null) {
+						email = user.getEmail();
+						name = user.getUsername();
+					}
+				}
+			}
+
+			// =========================
+			// 2️⃣ AI 상담 자동 메시지 생성
+			// =========================
+			if (message == null || message.isBlank()) {
+				if (gem != null || reform != null || condition != null || budget != null || style != null) {
+
+					message = "AI 리폼 상담\n" + "보석: " + safe(gem) + "\n" + "리폼: " + safe(reform) + "\n" + "상태: "
+							+ safe(condition) + "\n" + "예산: " + safe(budget) + "\n" + "스타일: " + safe(style);
+
+					color = style; // 기존 컬럼 활용
+				}
+			}
+
+			// =========================
+			// 3️⃣ 필수값 검증
+			// =========================
+			if (name == null || name.isBlank() || email == null || email.isBlank() || message == null
+					|| message.isBlank()) {
+
+				return ResponseEntity.badRequest().body(Map.of("error", "상담 정보가 부족합니다."));
+			}
+
+			// =========================
+			// 4️⃣ DB 저장
+			// =========================
+			lululandService.saveConsult(name, email, color, message);
+
+			return ResponseEntity.ok(Map.of("success", true, "message", "AI 상담이 성공적으로 접수되었습니다."));
+
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Map.of("error", "서버 오류: " + e.getMessage()));
+		}
 	}
-	
+
+	// null 안전 처리용
+	private String safe(String value) {
+		return value == null ? "-" : value;
+	}
+
 	@PostMapping("/api/find-id")
 	@ResponseBody
 	public ResponseEntity<?> findId(@RequestBody Map<String, String> data) {
 
-	    String name = data.get("name");
-	    String phone = data.get("phone");
+		String name = data.get("name");
+		String phone = data.get("phone");
 
-	    if (name == null || phone == null || name.isBlank() || phone.isBlank()) {
-	        return ResponseEntity.badRequest().body(Map.of(
-	            "success", false,
-	            "error", "이름과 휴대폰 번호를 입력해주세요."
-	        ));
-	    }
+		if (name == null || phone == null || name.isBlank() || phone.isBlank()) {
+			return ResponseEntity.badRequest().body(Map.of("success", false, "error", "이름과 휴대폰 번호를 입력해주세요."));
+		}
 
-	    // 하이픈 제거
-	    String normalizedPhone = phone.replaceAll("-", "");
+		// 하이픈 제거
+		String normalizedPhone = phone.replaceAll("-", "");
 
-	    // 🔥 사용자 조회
-	    Lululand user =
-	        lululandService.findByNameAndPhone(name, normalizedPhone);
+		// 🔥 사용자 조회
+		Lululand user = lululandService.findByNameAndPhone(name, normalizedPhone);
 
-	    if (user != null) {
-	        return ResponseEntity.ok(Map.of(
-	            "success", true,
-	            "email", user.getEmail()   // ✅ 이메일 반환
-	        ));
-	    } else {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-	            "success", false,
-	            "error", "일치하는 사용자를 찾을 수 없습니다."
-	        ));
-	    }
+		if (user != null) {
+			return ResponseEntity.ok(Map.of("success", true, "email", user.getEmail() // ✅ 이메일 반환
+			));
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(Map.of("success", false, "error", "일치하는 사용자를 찾을 수 없습니다."));
+		}
 	}
-	
+
 	@PostMapping("/api/find-password")
-    public ResponseEntity<?> findPassword(@RequestBody Map<String, String> data) {
+	public ResponseEntity<?> findPassword(@RequestBody Map<String, String> data) {
 
-        String email = data.get("email");
+		String email = data.get("email");
 
-        if (email == null || email.isBlank()) {
-            return ResponseEntity.badRequest().body(Map.of("error", "이메일 입력 필요"));
-        }
+		if (email == null || email.isBlank()) {
+			return ResponseEntity.badRequest().body(Map.of("error", "이메일 입력 필요"));
+		}
 
-        email = email.trim().toLowerCase();
+		email = email.trim().toLowerCase();
 
-        Lululand user = lululandService.findByEmail(email);
+		Lululand user = lululandService.findByEmail(email);
 
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Map.of("error", "사용자 없음"));
-        }
+		if (user == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "사용자 없음"));
+		}
 
-        try {
-            // 1️⃣ 임시 비밀번호 생성
-            String tempPassword = java.util.UUID.randomUUID()
-                    .toString()
-                    .substring(0, 8);
+		try {
+			// 1️⃣ 임시 비밀번호 생성
+			String tempPassword = java.util.UUID.randomUUID().toString().substring(0, 8);
 
-            // 2️⃣ DB 업데이트
-            user.setPassword(passwordEncoder.encode(tempPassword));
-            lululandService.updateUser(user);
+			// 2️⃣ DB 업데이트
+			user.setPassword(passwordEncoder.encode(tempPassword));
+			lululandService.updateUser(user);
 
-            // 3️⃣ 이메일 발송 (⭐ 핵심)
-            emailService.sendTempPasswordEmail(
-                    email,
-                    user.getUsername(),
-                    tempPassword
-            );
+			// 3️⃣ 이메일 발송 (⭐ 핵심)
+			emailService.sendTempPasswordEmail(email, user.getUsername(), tempPassword);
 
-            return ResponseEntity.ok(Map.of(
-                    "success", true,
-                    "message", "임시 비밀번호 이메일 발송 완료"
-            ));
+			return ResponseEntity.ok(Map.of("success", true, "message", "임시 비밀번호 이메일 발송 완료"));
 
-        } catch (Exception e) {
-            e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", e.getMessage()));
-        }
-    }
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", e.getMessage()));
+		}
+	}
 
 	@GetMapping("/api/me")
 	@ResponseBody
