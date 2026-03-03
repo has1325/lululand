@@ -1,6 +1,7 @@
 package com.example.lululand;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class LululandController {
 	private final PasswordEncoder passwordEncoder;
 	private final JwtUtil jwtUtil;
 	private final EmailService emailService;
+	private final SurveyService surveyService;
 
 	// === API 엔드포인트 ===
 	@GetMapping("/api/hello")
@@ -270,6 +272,44 @@ public class LululandController {
 			e.printStackTrace();
 
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", e.getMessage()));
+		}
+	}
+
+	@PostMapping("/api/survey")
+	@ResponseBody
+	public ResponseEntity<?> submitSurvey(@RequestBody Map<String, String> data,
+			@RequestHeader(value = "Authorization", required = false) String authHeader) {
+
+		try {
+
+			if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "로그인이 필요합니다."));
+			}
+
+			String token = authHeader.substring(7);
+
+			if (!jwtUtil.validateToken(token)) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "유효하지 않은 토큰입니다."));
+			}
+
+			String email = jwtUtil.extractUsername(token);
+
+			Integer satisfaction = Integer.parseInt(data.get("satisfaction"));
+			String service = data.get("service");
+			String feedback = data.get("feedback");
+
+			String coupon = surveyService.submitSurvey(email, satisfaction, service, feedback);
+
+			return ResponseEntity.ok(Map.of("success", true, "coupon", coupon));
+
+		} catch (RuntimeException e) {
+
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
+
+		} catch (Exception e) {
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Map.of("error", "서버 오류: " + e.getMessage()));
 		}
 	}
 
