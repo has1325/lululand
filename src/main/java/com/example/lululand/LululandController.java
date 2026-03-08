@@ -29,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "https://lululand.co.kr")
 public class LululandController {
 
 	private final LululandService lululandService;
