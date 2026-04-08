@@ -39,6 +39,7 @@ public class SecurityConfig {
             	        "/api/hello",
             	        "/api/find-id",
             	        "/api/find-password",
+            	        "/api/consult",
             	        "/css/**",
             	        "/js/**",
             	        "/images/**"
