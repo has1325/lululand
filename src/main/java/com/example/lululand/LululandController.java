@@ -148,7 +148,10 @@ public class LululandController {
 		try {
 			String name = consultData.get("name");
 			String email = consultData.get("email");
-			String color = consultData.get("color");
+
+			// ✅ 핵심 수정 (color → jewelry)
+			String jewelry = consultData.get("jewelry");
+
 			String message = consultData.get("message");
 
 			// ✅ AI 상담 데이터 수신
@@ -179,18 +182,23 @@ public class LululandController {
 			if (message == null || message.isBlank()) {
 				if (gem != null || reform != null || condition != null || budget != null || style != null) {
 
-					message = "AI 리폼 상담\n" + "보석: " + safe(gem) + "\n" + "리폼: " + safe(reform) + "\n" + "상태: "
-							+ safe(condition) + "\n" + "예산: " + safe(budget) + "\n" + "스타일: " + safe(style);
+					message = "AI 리폼 상담\n"
+							+ "보석: " + safe(gem) + "\n"
+							+ "리폼: " + safe(reform) + "\n"
+							+ "상태: " + safe(condition) + "\n"
+							+ "예산: " + safe(budget) + "\n"
+							+ "스타일: " + safe(style);
 
-					color = style; // 기존 컬럼 활용
+					jewelry = gem; // 👉 보석 정보 저장
 				}
 			}
 
 			// =========================
 			// 3️⃣ 필수값 검증
 			// =========================
-			if (name == null || name.isBlank() || email == null || email.isBlank() || message == null
-					|| message.isBlank()) {
+			if (name == null || name.isBlank() ||
+				email == null || email.isBlank() ||
+				message == null || message.isBlank()) {
 
 				return ResponseEntity.badRequest().body(Map.of("error", "상담 정보가 부족합니다."));
 			}
@@ -198,9 +206,9 @@ public class LululandController {
 			// =========================
 			// 4️⃣ DB 저장
 			// =========================
-			lululandService.saveConsult(name, email, color, message);
+			lululandService.saveConsult(name, email, jewelry, message);
 
-			return ResponseEntity.ok(Map.of("success", true, "message", "AI 상담이 성공적으로 접수되었습니다."));
+			return ResponseEntity.ok(Map.of("success", true, "message", "상담이 성공적으로 접수되었습니다."));
 
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
