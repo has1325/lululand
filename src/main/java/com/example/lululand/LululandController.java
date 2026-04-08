@@ -208,6 +208,10 @@ public class LululandController {
 			// =========================
 			lululandService.saveConsult(name, email, jewelry, message);
 
+			// ✅ 고객에게 메일 발송
+			emailService.sendConsultEmail(email, name, jewelry, message);
+			// ✅ 관리자에게 알림 메일 발송 (🔥 추가 핵심)
+			emailService.sendAdminConsultEmail(name, email, jewelry, message);
 			return ResponseEntity.ok(Map.of("success", true, "message", "상담이 성공적으로 접수되었습니다."));
 
 		} catch (Exception e) {
