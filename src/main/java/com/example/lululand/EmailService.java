@@ -122,4 +122,57 @@ public class EmailService {
 			throw new RuntimeException("SendGrid 오류", ex);
 		}
 	}
+
+	// ==============================
+	// 📩 고객 상담 접수 완료 메일 (추가)
+	// ==============================
+	public void sendConsultEmail(String toEmail, String name, String jewelry, String message) {
+
+		Email from = new Email("no-reply@lululand.co.kr");
+		Email to = new Email(toEmail);
+
+		String subject = "[루루랜드] 상담 신청이 접수되었습니다 💎";
+
+		String contentText = name + "님, 상담 신청이 정상적으로 접수되었습니다.\n\n" + "입력하신 내용:\n" + "보석 종류: " + jewelry + "\n"
+				+ "상담 내용: " + message + "\n\n" + "빠른 시일 내에 답변드리겠습니다.\n" + "감사합니다.";
+
+		String contentHtml = "<div style='font-family:Arial;'>" + "<h2>💎 상담 접수 완료</h2>" + "<p><b>" + name
+				+ "</b>님, 상담 신청이 접수되었습니다.</p>" + "<hr>" + "<p><b>보석 종류:</b> " + jewelry + "</p>"
+				+ "<p><b>상담 내용:</b><br>" + message + "</p>" + "<hr>" + "<p>빠른 시일 내에 답변드리겠습니다.</p>" + "<p>감사합니다 😊</p>"
+				+ "</div>";
+
+		Content textContent = new Content("text/plain", contentText);
+		Content htmlContent = new Content("text/html", contentHtml);
+
+		Mail mail = new Mail();
+		mail.setFrom(from);
+		mail.setSubject(subject);
+
+		Personalization personalization = new Personalization();
+		personalization.addTo(to);
+		mail.addPersonalization(personalization);
+
+		mail.addContent(textContent);
+		mail.addContent(htmlContent);
+
+		SendGrid sg = new SendGrid(sendGridApiKey);
+		Request request = new Request();
+
+		try {
+			request.setMethod(Method.POST);
+			request.setEndpoint("mail/send");
+			request.setBody(mail.build());
+
+			Response response = sg.api(request);
+
+			System.out.println("고객 메일 상태코드: " + response.getStatusCode());
+
+			if (response.getStatusCode() != 202) {
+				throw new RuntimeException("고객 메일 발송 실패");
+			}
+
+		} catch (IOException ex) {
+			throw new RuntimeException("SendGrid 오류", ex);
+		}
+	}
 }
